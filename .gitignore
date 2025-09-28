@@ -1,0 +1,60 @@
+# Pasta pessoal de comandos para não ser enviada ao repositório
+/Comandos/
+
+# --- Python / Backend ---
+# Ambiente virtual do Poetry e venv padrão
+.venv/
+/.poetry/
+
+# Bytecode e arquivos compilados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos de ambiente (contêm segredos!)
+.env
+.env.*
+
+# Cache de testes e relatórios de cobertura
+.pytest_cache/
+/htmlcov/
+
+
+# --- Node / Frontend ---
+# Dependências
+/node_modules/
+
+# Arquivos de build
+/build/
+/dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Arquivos de ambiente do frontend
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+
+# --- IA Model / Notebooks ---
+# Checkpoints do Jupyter Notebook
+.ipynb_checkpoints/
+# Opcional: Descomente a linha abaixo se o seu dataset for muito grande
+# *.csv
+
+
+# --- Arquivos de SO e Editores ---
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# VS Code
+.vscode/
