@@ -23,18 +23,39 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 package-mode = false
 
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+preview = true
+
+[tool.ruff.format]
+preview = true
+
+[tool.pytest.ini_options]
+pythonpath = "."
+
+[tool.taskipy.tasks]
+lint = 'ruff check'
+pre_format = 'ruff check --fix'
+format = 'ruff format'
+run = 'fastapi dev src/main.py'
+pre_test = 'task lint'
+test = 'pytest -s -x --cov=src -vv'
+
 [dependency-groups]
 dev = [
     "poethepoet (>=0.37.0,<0.38.0)",
     "pytest (>=8.4.2,<9.0.0)",
     "pytest-cov (>=7.0.0,<8.0.0)",
     "taskipy (>=1.14.1,<2.0.0)",
-    "ruff (>=0.13.2,<0.14.0)"
+    "ruff (>=0.13.2,<0.14.0)",
+    "httpx (>=0.28.1,<0.29.0)"
 ]
 
 [tool.poe.tasks]
 # Comando para rodar o servidor em modo de desenvolvimento
-dev = "uvicorn src.main:app --reload"
+#dev = "uvicorn src.main:app --reload"
 
 # Comando para rodar o servidor em modo de "produção"
 start = "uvicorn src.main:app --host 0.0.0.0"

@@ -4,8 +4,9 @@ from fastapi import FastAPI
 app = FastAPI(
     title="LeishAI API",
     description="API for Canine Leishmaniasis Prediction",
-    version="0.1.0"
+    version="0.1.0",
 )
+
 
 # Define an endpoint (route) for the API root "/"
 # The method is GET, used to request data from a resource.
