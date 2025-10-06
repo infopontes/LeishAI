@@ -8,11 +8,13 @@ authors = [
 readme = "../README.md"
 requires-python = ">=3.12,<4.0"
 dependencies = [
-    "fastapi (>=0.117.1,<0.118.0)",
+    "fastapi[standard] (>=0.118.0,<0.119.0)",
     "uvicorn[standard] (>=0.37.0,<0.38.0)",
     "sqlalchemy (>=2.0.43,<3.0.0)",
     "psycopg2-binary (>=2.9.10,<3.0.0)",
-    "python-dotenv (>=1.1.1,<2.0.0)"
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "pydantic-settings (>=2.11.0,<3.0.0)",
+    "alembic (>=1.16.5,<2.0.0)"
 ]
 
 
@@ -42,6 +44,10 @@ format = 'ruff format'
 run = 'fastapi dev src/main.py'
 pre_test = 'task lint'
 test = 'pytest -s -x --cov=src -vv'
+post_test = 'coverage html'
+dbstart = 'docker compose up -d'
+dbstop = 'docker compose stop'
+dbps = 'docker compose ps'
 
 [dependency-groups]
 dev = [
