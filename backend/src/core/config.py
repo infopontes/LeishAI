@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings
 
 from urllib.parse import quote_plus
 
+
 class Settings(BaseSettings):
     postgres_user: str
     postgres_password: str
@@ -19,5 +20,6 @@ class Settings(BaseSettings):
             f"postgresql+psycopg2://{self.postgres_user}:{password_encoded}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
+
 
 settings = Settings()

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from src.api.v1 import router_users
 
 # Create a FastAPI application instance
 app = FastAPI(
@@ -7,10 +8,13 @@ app = FastAPI(
     version="0.1.0",
 )
 
+# Inclui o router de usuários na aplicação principal
+app.include_router(router_users.router)
+
 
 # Define an endpoint (route) for the API root "/"
 # The method is GET, used to request data from a resource.
-@app.get("/")
+@app.get("/", tags=["Root"])
 def read_root():
     """
     Root endpoint that returns a welcome message.
