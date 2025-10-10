@@ -52,6 +52,7 @@ post_test = 'coverage html'
 dbstart = 'docker compose up -d'
 dbstop = 'docker compose stop'
 dbps = 'docker compose ps'
+dbpsql = 'docker compose exec db psql -U dsleish_user -d dsleish_db'
 
 [dependency-groups]
 dev = [

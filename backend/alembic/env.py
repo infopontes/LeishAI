@@ -8,7 +8,7 @@ sys.path.insert(
     0, os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
 )
 
-from src.db.models import Base  # 👈 Importe a Base dos seus modelos
+from src.db.models.base import Base  # 👈 Importe a Base dos seus modelos
 from src.core.config import settings  # 👈 Importe suas configurações
 
 
