@@ -1,17 +1,24 @@
-from pydantic_settings import BaseSettings
-
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from urllib.parse import quote_plus
 
 
 class Settings(BaseSettings):
+    # Configurações do Banco de Dados
     postgres_user: str
     postgres_password: str
     postgres_db: str
     postgres_host: str = "localhost"
     postgres_port: int = 5432
 
-    class Config:
-        env_file = ".env"
+    # Configurações do JWT (NOVAS)
+    SECRET_KEY: str
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+
+    # Carrega as variáveis do arquivo .env
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8"
+    )
 
     @property
     def DATABASE_URL(self) -> str:

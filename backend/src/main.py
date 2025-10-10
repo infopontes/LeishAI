@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.api.v1 import router_users
+from src.api.v1 import router_users, router_auth
 
 # Create a FastAPI application instance
 app = FastAPI(
@@ -7,6 +7,9 @@ app = FastAPI(
     description="API for Canine Leishmaniasis Prediction",
     version="0.1.0",
 )
+
+# routers na aplicação principal
+app.include_router(router_auth.router)
 
 # Inclui o router de usuários na aplicação principal
 app.include_router(router_users.router)
