@@ -16,3 +16,4 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     role_id = Column(UUID(as_uuid=True), ForeignKey("roles.id"))
     role = relationship("Role", back_populates="users")
+    assessments = relationship("Assessment", back_populates="user")
