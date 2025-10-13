@@ -28,9 +28,14 @@ def get_animals(
     return db.query(models.Animal).offset(skip).limit(limit).all()
 
 
-
-def get_animal_by_original_id(db: Session, original_id: str) -> models.Animal | None:
+def get_animal_by_original_id(
+    db: Session, original_id: str
+) -> models.Animal | None:
     """
     Busca um animal pelo seu ID do banco de dados original.
     """
-    return db.query(models.Animal).filter(models.Animal.original_id == original_id).first()
+    return (
+        db.query(models.Animal)
+        .filter(models.Animal.original_id == original_id)
+        .first()
+    )

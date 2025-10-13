@@ -4,21 +4,9 @@ from sqlalchemy.orm import Session
 
 from src.db.crud import crud_role
 from src.schemas import role as role_schema
-from src.db import models
-from .dependencies import get_current_user, get_db
+from .dependencies import get_current_user, get_db, get_current_admin_user
 
 router = APIRouter(prefix="/roles", tags=["Roles"])
-
-
-def get_current_admin_user(
-    current_user: models.User = Depends(get_current_user),
-) -> models.User:
-    if not current_user.role or current_user.role.name != "admin":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="The user does not have enough privileges",
-        )
-    return current_user
 
 
 @router.post(

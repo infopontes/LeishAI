@@ -21,10 +21,12 @@ def main() -> None:
     logger.info(">>> Starting Database Seeding Process <<<")
     db = SessionLocal()
     try:
-        # Chama cada função de seed na ordem correta de dependência
+        # ---------------------------------------------------- #
+        # --> A FUNÇÃO É CHAMADA AQUI <--
         seed_users.seed_roles_and_users(db)
+        # ---------------------------------------------------- #
         seed_breeds.seed_breeds(db)
-        seed_from_csv.seed_from_csv(db) # 👈 Adicione esta linha
+        seed_from_csv.seed_from_csv(db)
     except Exception as e:
         logger.error(f"An error occurred during seeding: {e}", exc_info=True)
     finally:

@@ -15,6 +15,12 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
+    # --- VARIÁVEIS PARA O SEED ---
+    DEFAULT_ADMIN_EMAIL: str
+    DEFAULT_ADMIN_PASSWORD: str
+    DEFAULT_VET_EMAIL: str
+    DEFAULT_VET_PASSWORD: str
+
     # Carrega as variáveis do arquivo .env
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8"

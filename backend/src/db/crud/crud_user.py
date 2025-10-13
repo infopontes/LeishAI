@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from typing import List
 from src.db import models
 from src.schemas import user as user_schema, role as role_schema
 from src.core.security import get_password_hash, verify_password
@@ -25,6 +26,8 @@ def create_user(db: Session, user: user_schema.UserCreate) -> models.User:
     db_user = models.User(
         email=user.email,
         hashed_password=hashed_password,
+        full_name=user.full_name,
+        institution=user.institution,
         role_id=default_role.id,
     )
     db.add(db_user)
@@ -40,3 +43,9 @@ def authenticate_user(
     if not user or not verify_password(password, user.hashed_password):
         return None
     return user
+
+
+def get_users(
+    db: Session, skip: int = 0, limit: int = 100
+) -> List[models.User]:
+    return db.query(models.User).offset(skip).limit(limit).all()

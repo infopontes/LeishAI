@@ -6,6 +6,8 @@ from .role import RolePublic
 
 class UserBase(BaseModel):
     email: EmailStr
+    full_name: str
+    institution: Optional[str] = None
 
 
 class UserCreate(UserBase):
@@ -16,4 +18,5 @@ class UserPublic(UserBase):
     id: UUID
     is_active: bool
     role: Optional[RolePublic] = None
+
     model_config = ConfigDict(from_attributes=True)

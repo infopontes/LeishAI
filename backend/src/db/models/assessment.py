@@ -7,6 +7,7 @@ from sqlalchemy.sql import func
 from .base import Base
 from . import enums
 
+
 class Assessment(Base):
     __tablename__ = "assessments"
 
@@ -23,11 +24,13 @@ class Assessment(Base):
     muzzle_ear_lesion = Column(Enum(enums.PresenceAbsence), nullable=True)
     lymph_nodes = Column(Enum(enums.LesionSeverity), nullable=True)
     blepharitis = Column(Enum(enums.PresenceAbsence), nullable=True)
-    conjunctivitis = Column(String, nullable=True) # 👈 Alterado para String
+    conjunctivitis = Column(String, nullable=True)  # 👈 Alterado para String
     alopecia = Column(Enum(enums.PresenceAbsence), nullable=True)
     bleeding = Column(Enum(enums.PresenceAbsence), nullable=True)
-    skin_lesion = Column(String, nullable=True) # 👈 Alterado para String
-    muzzle_lip_depigmentation = Column(Enum(enums.PresenceAbsence), nullable=True)
+    skin_lesion = Column(String, nullable=True)  # 👈 Alterado para String
+    muzzle_lip_depigmentation = Column(
+        Enum(enums.PresenceAbsence), nullable=True
+    )
 
     # ... (resto do arquivo continua o mesmo)
     # Resultados laboratoriais
@@ -36,8 +39,12 @@ class Assessment(Base):
     diagnosis = Column(Enum(enums.DiagnosisResult), nullable=True)
 
     # Chaves estrangeiras
-    animal_id = Column(UUID(as_uuid=True), ForeignKey("animals.id"), nullable=False)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    animal_id = Column(
+        UUID(as_uuid=True), ForeignKey("animals.id"), nullable=False
+    )
+    user_id = Column(
+        UUID(as_uuid=True), ForeignKey("users.id"), nullable=False
+    )
 
     # Relacionamentos
     animal = relationship("Animal", back_populates="assessments")

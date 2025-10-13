@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi.testclient import TestClient
-from typing import Optional  # 👈 Adicionar import
+from typing import Optional
 
 from src.schemas.user import UserCreate
 from src.schemas.role import RoleCreate
@@ -13,18 +13,15 @@ def get_authenticated_headers(
     email: str,
     role_name: Optional[str] = None,
 ) -> dict[str, str]:
-    """
-    Cria um usuário (se não existir), faz login e retorna os cabeçalhos de autorização.
-    Pode, opcionalmente, atribuir um perfil específico ao usuário.
-    """
     password = "testpassword"
     user = crud_user.get_user_by_email(db, email=email)
 
     if not user:
-        user_in = UserCreate(email=email, password=password)
+        user_in = UserCreate(
+            email=email, password=password, full_name=f"Test User {email}"
+        )
         user = crud_user.create_user(db, user=user_in)
 
-        # --- INÍCIO DA NOVA LÓGICA ---
         if role_name:
             role = crud_role.get_role_by_name(db, name=role_name)
             if not role:
@@ -36,7 +33,6 @@ def get_authenticated_headers(
             user.role_id = role.id
             db.commit()
             db.refresh(user)
-        # --- FIM DA NOVA LÓGICA ---
 
     login_data = {"username": email, "password": password}
     response = client.post("/token", data=login_data)

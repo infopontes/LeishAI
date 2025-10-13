@@ -4,46 +4,42 @@ import src.db.crud.crud_role as crud_role
 import src.db.crud.crud_user as crud_user
 from src.schemas.role import RoleCreate
 from src.schemas.user import UserCreate
+from src.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-# 1. Definir os perfis que queremos garantir que existam
 ROLES_TO_CREATE = [
     {"name": "admin", "description": "System Administrator"},
     {"name": "veterinario", "description": "Veterinarian user"},
     {"name": "coordenador", "description": "Coordinator user"},
 ]
 
-
+# ---------------------------------------------------- #
+# --> O NOME DA FUNÇÃO É DEFINIDO AQUI <--
 def seed_roles_and_users(db: Session) -> None:
+# ---------------------------------------------------- #
     logger.info("--- Seeding Roles and Users ---")
-
-    # 2. Criar Perfis (Roles) em um loop
+    
     for role_data in ROLES_TO_CREATE:
         role = crud_role.get_role_by_name(db, name=role_data["name"])
         if not role:
-            role_in = RoleCreate(
-                name=role_data["name"], description=role_data["description"]
-            )
+            role_in = RoleCreate(name=role_data["name"], description=role_data["description"])
             crud_role.create_role(db, role=role_in)
             logger.info(f"Created role: {role_data['name']}")
         else:
-            logger.info(
-                f"Role '{role_data['name']}' already exists. Skipping."
-            )
-
-    # Garante que temos o objeto 'admin_role' para a atribuição
+            logger.info(f"Role '{role_data['name']}' already exists. Skipping.")
+    
     admin_role = crud_role.get_role_by_name(db, name="admin")
 
-    # 3. Criar Usuário Administrador
-    admin_email = "admin@dsleish.com"
+    admin_email = settings.DEFAULT_ADMIN_EMAIL
     admin_user = crud_user.get_user_by_email(db, email=admin_email)
     if not admin_user:
         user_in = UserCreate(
-            email=admin_email, password="leishmaniose@the!br343pi"
+            email=admin_email,
+            password=settings.DEFAULT_ADMIN_PASSWORD,
+            full_name="Admin LeishAI",
+            institution="LeishAI Project"
         )
-        # A função create_user atribui 'veterinario' por padrão,
-        # então precisamos sobrescrever com o perfil de admin.
         new_admin = crud_user.create_user(db, user=user_in)
         new_admin.role_id = admin_role.id
         db.commit()
@@ -51,18 +47,18 @@ def seed_roles_and_users(db: Session) -> None:
     else:
         logger.info(f"Admin user '{admin_email}' already exists. Skipping.")
 
-    # 4. Criar Usuário Veterinário
-    vet_email = "infopontes@gmail.com"
+    vet_email = settings.DEFAULT_VET_EMAIL
     vet_user = crud_user.get_user_by_email(db, email=vet_email)
     if not vet_user:
-        user_in = UserCreate(email=vet_email, password="delta@phbpi")
-        # Aqui não precisamos fazer nada extra, pois a função 'create_user'
-        # já atribui o perfil 'veterinario' por padrão.
+        user_in = UserCreate(
+            email=vet_email,
+            password=settings.DEFAULT_VET_PASSWORD,
+            full_name="Marcelo Pontes",
+            institution="UFPI"
+        )
         crud_user.create_user(db, user=user_in)
         logger.info(f"Created veterinarian user: {vet_email}")
     else:
-        logger.info(
-            f"Veterinarian user '{vet_email}' already exists. Skipping."
-        )
-
+        logger.info(f"Veterinarian user '{vet_email}' already exists. Skipping.")
+        
     logger.info("--- Finished Seeding Roles and Users ---")
