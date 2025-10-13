@@ -30,6 +30,12 @@ class AssessmentCreate(AssessmentBase):
     animal_id: uuid.UUID
 
 
+# Schema para atualização. Note que animal_id não está aqui,
+# pois não permitiremos a alteração do animal de um atendimento.
+class AssessmentUpdate(AssessmentBase):
+    pass
+
+
 class AssessmentPublic(AssessmentBase):
     id: uuid.UUID
     animal: AnimalPublic

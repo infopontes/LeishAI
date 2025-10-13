@@ -35,3 +35,56 @@ def get_assessments(
         .limit(limit)
         .all()
     )
+
+
+def get_assessment_by_id(
+    db: Session, assessment_id: UUID
+) -> models.Assessment | None:
+    """
+    Busca um atendimento pelo seu ID.
+    """
+    return (
+        db.query(models.Assessment)
+        .filter(models.Assessment.id == assessment_id)
+        .first()
+    )
+
+
+def update_assessment(
+    db: Session,
+    assessment_id: UUID,
+    assessment_update: assessment_schema.AssessmentUpdate,
+) -> models.Assessment | None:
+    """
+    Atualiza os dados de um atendimento existente.
+    """
+    db_assessment = get_assessment_by_id(db, assessment_id=assessment_id)
+    if not db_assessment:
+        return None
+
+    # Obtém os dados do schema de atualização como um dicionário
+    update_data = assessment_update.model_dump(exclude_unset=True)
+
+    # Itera sobre os dados e atualiza os campos do objeto SQLAlchemy
+    for key, value in update_data.items():
+        setattr(db_assessment, key, value)
+
+    db.add(db_assessment)
+    db.commit()
+    db.refresh(db_assessment)
+    return db_assessment
+
+
+def delete_assessment(
+    db: Session, assessment_id: UUID
+) -> models.Assessment | None:
+    """
+    Remove um atendimento do banco de dados pelo seu ID.
+    """
+    db_assessment = get_assessment_by_id(db, assessment_id=assessment_id)
+    if not db_assessment:
+        return None
+
+    db.delete(db_assessment)
+    db.commit()
+    return db_assessment
