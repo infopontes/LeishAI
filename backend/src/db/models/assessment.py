@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, ForeignKey, Enum, DateTime
+from sqlalchemy import Column, String, ForeignKey, Enum, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -7,14 +7,13 @@ from sqlalchemy.sql import func
 from .base import Base
 from . import enums
 
-
 class Assessment(Base):
     __tablename__ = "assessments"
 
-    # Identificação interna
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    original_id = Column(String, nullable=True)
 
-    # Campos clínicos (sem 'original_id' aqui)
+    # Campos clínicos
     general_state = Column(Enum(enums.GeneralState), nullable=True)
     ectoparasites = Column(Enum(enums.Severity), nullable=True)
     nutritional_state = Column(Enum(enums.NutritionalState), nullable=True)
@@ -24,26 +23,21 @@ class Assessment(Base):
     muzzle_ear_lesion = Column(Enum(enums.PresenceAbsence), nullable=True)
     lymph_nodes = Column(Enum(enums.LesionSeverity), nullable=True)
     blepharitis = Column(Enum(enums.PresenceAbsence), nullable=True)
-    conjunctivitis = Column(Enum(enums.PresenceAbsence), nullable=True)
+    conjunctivitis = Column(String, nullable=True) # 👈 Alterado para String
     alopecia = Column(Enum(enums.PresenceAbsence), nullable=True)
     bleeding = Column(Enum(enums.PresenceAbsence), nullable=True)
-    skin_lesion = Column(Enum(enums.PresenceAbsence), nullable=True)
-    muzzle_lip_depigmentation = Column(
-        Enum(enums.PresenceAbsence), nullable=True
-    )
+    skin_lesion = Column(String, nullable=True) # 👈 Alterado para String
+    muzzle_lip_depigmentation = Column(Enum(enums.PresenceAbsence), nullable=True)
 
+    # ... (resto do arquivo continua o mesmo)
     # Resultados laboratoriais
     culture = Column(Enum(enums.DiagnosisResult), nullable=True)
     slide = Column(Enum(enums.DiagnosisResult), nullable=True)
     diagnosis = Column(Enum(enums.DiagnosisResult), nullable=True)
 
-    # Chaves estrangeiras corretas
-    animal_id = Column(
-        UUID(as_uuid=True), ForeignKey("animals.id"), nullable=False
-    )
-    user_id = Column(
-        UUID(as_uuid=True), ForeignKey("users.id"), nullable=False
-    )
+    # Chaves estrangeiras
+    animal_id = Column(UUID(as_uuid=True), ForeignKey("animals.id"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
 
     # Relacionamentos
     animal = relationship("Animal", back_populates="assessments")

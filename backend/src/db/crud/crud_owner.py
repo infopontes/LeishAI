@@ -21,3 +21,10 @@ def get_owners(
     db: Session, skip: int = 0, limit: int = 100
 ) -> List[models.Owner]:
     return db.query(models.Owner).offset(skip).limit(limit).all()
+
+
+def get_owner_by_name(db: Session, name: str) -> models.Owner | None:
+    """
+    Busca um proprietário pelo seu nome (case-insensitive).
+    """
+    return db.query(models.Owner).filter(models.Owner.name.ilike(name)).first()
