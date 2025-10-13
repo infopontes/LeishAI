@@ -14,21 +14,26 @@ ROLES_TO_CREATE = [
     {"name": "coordenador", "description": "Coordinator user"},
 ]
 
+
 # ---------------------------------------------------- #
 # --> O NOME DA FUNÇÃO É DEFINIDO AQUI <--
 def seed_roles_and_users(db: Session) -> None:
-# ---------------------------------------------------- #
+    # ---------------------------------------------------- #
     logger.info("--- Seeding Roles and Users ---")
-    
+
     for role_data in ROLES_TO_CREATE:
         role = crud_role.get_role_by_name(db, name=role_data["name"])
         if not role:
-            role_in = RoleCreate(name=role_data["name"], description=role_data["description"])
+            role_in = RoleCreate(
+                name=role_data["name"], description=role_data["description"]
+            )
             crud_role.create_role(db, role=role_in)
             logger.info(f"Created role: {role_data['name']}")
         else:
-            logger.info(f"Role '{role_data['name']}' already exists. Skipping.")
-    
+            logger.info(
+                f"Role '{role_data['name']}' already exists. Skipping."
+            )
+
     admin_role = crud_role.get_role_by_name(db, name="admin")
 
     admin_email = settings.DEFAULT_ADMIN_EMAIL
@@ -38,7 +43,7 @@ def seed_roles_and_users(db: Session) -> None:
             email=admin_email,
             password=settings.DEFAULT_ADMIN_PASSWORD,
             full_name="Admin LeishAI",
-            institution="LeishAI Project"
+            institution="LeishAI Project",
         )
         new_admin = crud_user.create_user(db, user=user_in)
         new_admin.role_id = admin_role.id
@@ -54,11 +59,13 @@ def seed_roles_and_users(db: Session) -> None:
             email=vet_email,
             password=settings.DEFAULT_VET_PASSWORD,
             full_name="Marcelo Pontes",
-            institution="UFPI"
+            institution="UFPI",
         )
         crud_user.create_user(db, user=user_in)
         logger.info(f"Created veterinarian user: {vet_email}")
     else:
-        logger.info(f"Veterinarian user '{vet_email}' already exists. Skipping.")
-        
+        logger.info(
+            f"Veterinarian user '{vet_email}' already exists. Skipping."
+        )
+
     logger.info("--- Finished Seeding Roles and Users ---")

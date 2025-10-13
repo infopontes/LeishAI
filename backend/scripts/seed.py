@@ -7,15 +7,15 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 # Imports dos nossos módulos de seed
-from scripts.seeds import seed_breeds, seed_users, seed_from_csv # noqa: E402
-from src.db.database import SessionLocal # noqa: E402
+from scripts.seeds import seed_breeds, seed_users, seed_from_csv  # noqa: E402
+from src.db.database import SessionLocal  # noqa: E402
 
 # Configuração do Logging
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
+
 
 def main() -> None:
     logger.info(">>> Starting Database Seeding Process <<<")
