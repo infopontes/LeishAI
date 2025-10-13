@@ -6,12 +6,29 @@ from src.schemas.breed import BreedCreate
 logger = logging.getLogger(__name__)
 
 INITIAL_BREEDS = [
-    "SRD (Sem Raça Definida)", "Poodle", "Pastor Alemão", "Rottweiler", 
-    "Pitbull", "Yorkshire", "Pinscher", "Fila", "Labrador", "Cofap", 
-    "Dogue Alemão", "Mestiço", "Fox Paulistinha", "Weimaraner", 
-    "Shipdog", "Dálmata", "Sharpei", "Terrier", "Dachshund", "Lhasa Apso", 
-    "American"
+    "SRD (Sem Raça Definida)",
+    "Poodle",
+    "Pastor Alemão",
+    "Rottweiler",
+    "Pitbull",
+    "Yorkshire",
+    "Pinscher",
+    "Fila",
+    "Labrador",
+    "Cofap",
+    "Dogue Alemão",
+    "Mestiço",
+    "Fox Paulistinha",
+    "Weimaraner",
+    "Shipdog",
+    "Dálmata",
+    "Sharpei",
+    "Terrier",
+    "Dachshund",
+    "Lhasa Apso",
+    "American",
 ]
+
 
 def seed_breeds(db: Session) -> None:
     logger.info("--- Seeding Breeds ---")

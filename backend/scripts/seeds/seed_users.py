@@ -14,19 +14,24 @@ ROLES_TO_CREATE = [
     {"name": "coordenador", "description": "Coordinator user"},
 ]
 
+
 def seed_roles_and_users(db: Session) -> None:
     logger.info("--- Seeding Roles and Users ---")
-    
+
     # 2. Criar Perfis (Roles) em um loop
     for role_data in ROLES_TO_CREATE:
         role = crud_role.get_role_by_name(db, name=role_data["name"])
         if not role:
-            role_in = RoleCreate(name=role_data["name"], description=role_data["description"])
+            role_in = RoleCreate(
+                name=role_data["name"], description=role_data["description"]
+            )
             crud_role.create_role(db, role=role_in)
             logger.info(f"Created role: {role_data['name']}")
         else:
-            logger.info(f"Role '{role_data['name']}' already exists. Skipping.")
-    
+            logger.info(
+                f"Role '{role_data['name']}' already exists. Skipping."
+            )
+
     # Garante que temos o objeto 'admin_role' para a atribuição
     admin_role = crud_role.get_role_by_name(db, name="admin")
 
@@ -35,8 +40,7 @@ def seed_roles_and_users(db: Session) -> None:
     admin_user = crud_user.get_user_by_email(db, email=admin_email)
     if not admin_user:
         user_in = UserCreate(
-            email=admin_email,
-            password="leishmaniose@the!br343pi"
+            email=admin_email, password="leishmaniose@the!br343pi"
         )
         # A função create_user atribui 'veterinario' por padrão,
         # então precisamos sobrescrever com o perfil de admin.
@@ -51,15 +55,14 @@ def seed_roles_and_users(db: Session) -> None:
     vet_email = "infopontes@gmail.com"
     vet_user = crud_user.get_user_by_email(db, email=vet_email)
     if not vet_user:
-        user_in = UserCreate(
-            email=vet_email,
-            password="delta@phbpi"
-        )
+        user_in = UserCreate(email=vet_email, password="delta@phbpi")
         # Aqui não precisamos fazer nada extra, pois a função 'create_user'
         # já atribui o perfil 'veterinario' por padrão.
         crud_user.create_user(db, user=user_in)
         logger.info(f"Created veterinarian user: {vet_email}")
     else:
-        logger.info(f"Veterinarian user '{vet_email}' already exists. Skipping.")
-        
+        logger.info(
+            f"Veterinarian user '{vet_email}' already exists. Skipping."
+        )
+
     logger.info("--- Finished Seeding Roles and Users ---")
