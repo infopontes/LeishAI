@@ -21,6 +21,11 @@ class AnimalCreate(AnimalBase):
     breed_id: uuid.UUID
 
 
+# Schema para atualização. Campos como owner_id e breed_id são opcionais na atualização.
+class AnimalUpdate(AnimalBase):
+    pass
+
+
 # Schema para retorno na API.
 # Note que os campos 'owner' e 'breed' usam os schemas públicos.
 class AnimalPublic(AnimalBase):
