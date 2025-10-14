@@ -8,7 +8,7 @@ from src.db import models
 from src.db.crud import crud_user
 from src.db.database import SessionLocal
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 
 def get_db():

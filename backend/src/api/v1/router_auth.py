@@ -1,31 +1,27 @@
 from datetime import timedelta
-from fastapi import (
-    APIRouter,
-    Depends,
-    HTTPException,
-    status,
-    Request,
-)
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from src.core.limiter import limiter
-
 from src.core import security
 from src.core.config import settings
 from src.db.crud import crud_user
 from .dependencies import get_db
 
-router = APIRouter(tags=["Authentication"])
+router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
 @router.post("/token")
-@limiter.limit("100/minute")
+@limiter.limit("100/minute")  # Usamos o decorador que funciona nos testes
 def login_for_access_token(
     request: Request,
     db: Session = Depends(get_db),
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
+    """
+    Autentica o utilizador e gera um token JWT de acesso.
+    """
     user = crud_user.authenticate_user(
         db, email=form_data.username, password=form_data.password
     )

@@ -126,47 +126,35 @@ def test_update_user_as_non_admin_fails(
 
 # ... (imports e outros testes) ...
 
-
 def test_deactivate_user_as_admin(client: TestClient, db_session: Session):
     """
     Testa a desativação ('soft delete') de um utilizador por um administrador.
     """
-    # 1. Criar o utilizador admin e o utilizador alvo
     admin_headers = get_authenticated_headers(
         client, db_session, "admin_for_delete@example.com", role_name="admin"
     )
     target_user_in = user_schema.UserCreate(
-        email="user_to_deactivate@example.com",
-        password="password",
-        full_name="Utilizador a Desativar",
+        email="user_to_deactivate@example.com", password="password", full_name="Utilizador a Desativar"
     )
     target_user = crud_user.create_user(db_session, user=target_user_in)
-    assert target_user.is_active is False  # Garante que começa como inativo
+    assert target_user.is_active is False # A asserção agora vai passar
 
-    # --- INÍCIO DA CORREÇÃO ---
-    # 2. Ativar o utilizador antes de o poder desativar
+    # Ativar o utilizador antes de o poder desativar
     target_user.is_active = True
     db_session.commit()
     db_session.refresh(target_user)
     assert target_user.is_active is True
-    # --- FIM DA CORREÇÃO ---
 
-    # 3. Fazer a requisição DELETE para o endpoint
-    response_delete = client.delete(
-        f"/users/{target_user.id}", headers=admin_headers
-    )
+    # Fazer a requisição DELETE
+    response_delete = client.delete(f"/users/{target_user.id}", headers=admin_headers)
 
-    # 4. Asserção para a resposta do DELETE
     assert response_delete.status_code == 204
 
-    # 5. Verificar se o utilizador foi realmente desativado
+    # Verificar se foi desativado
     db_session.refresh(target_user)
     assert target_user.is_active is False
 
-    # 6. Tentar fazer login com o utilizador desativado e verificar se falha
-    login_data = {
-        "username": "user_to_deactivate@example.com",
-        "password": "password",
-    }
-    response_login = client.post("/token", data=login_data)
+    # Tentar fazer login e verificar se falha
+    login_data = {"username": "user_to_deactivate@example.com", "password": "password"}
+    response_login = client.post("/auth/token", data=login_data)
     assert response_login.status_code == 401

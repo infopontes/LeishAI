@@ -1,17 +1,16 @@
-from uuid import UUID
-from fastapi import Response
 from fastapi import (
     APIRouter,
     Depends,
     HTTPException,
     status,
     Request,
+    Response,
 )
 from sqlalchemy.orm import Session
 from typing import List
+from uuid import UUID
 
 from src.core.limiter import limiter
-
 from src.db.crud import crud_user
 from src.schemas import user as user_schema
 from src.db import models
@@ -24,14 +23,14 @@ router = APIRouter(prefix="/users", tags=["Users"])
     "/",
     response_model=user_schema.UserPublic,
     status_code=status.HTTP_201_CREATED,
-    # Em vez de decorador, usamos o limiter como uma dependência
-    dependencies=[Depends(limiter.limit("5/hour"))],
 )
+@limiter.limit("5/hour")
 def create_new_user(
-    request: Request,  # 👈 Adicione o request
+    request: Request,
     user: user_schema.UserCreate,
     db: Session = Depends(get_db),
 ):
+    """Cria um novo utilizador no sistema."""
     db_user = crud_user.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(
@@ -43,6 +42,7 @@ def create_new_user(
 
 @router.get("/me", response_model=user_schema.UserPublic)
 async def read_users_me(current_user: models.User = Depends(get_current_user)):
+    """Retorna os dados do utilizador atualmente logado."""
     return current_user
 
 
@@ -52,6 +52,7 @@ async def read_users_me(current_user: models.User = Depends(get_current_user)):
     dependencies=[Depends(get_current_admin_user)],
 )
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """Retorna uma lista de todos os utilizadores (apenas para admins)."""
     users = crud_user.get_users(db, skip=skip, limit=limit)
     return users
 
@@ -59,24 +60,20 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 @router.put(
     "/{user_id}",
     response_model=user_schema.UserPublic,
-    dependencies=[Depends(get_current_admin_user)],  # 👈 Protegido por admin
+    dependencies=[Depends(get_current_admin_user)],
 )
 def update_existing_user(
     user_id: UUID,
-    user_update: user_schema.UserUpdateAdmin,  # 👈 Usamos o novo schema
+    user_update: user_schema.UserUpdateAdmin,
     db: Session = Depends(get_db),
 ):
-    """
-    Atualiza os dados de um utilizador existente.
-    Acessível apenas para administradores.
-    """
+    """Atualiza um utilizador existente (apenas para admins)."""
     db_user = crud_user.update_user(
         db=db, user_id=user_id, user_update=user_update
     )
     if db_user is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found",
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
     return db_user
 
@@ -84,20 +81,13 @@ def update_existing_user(
 @router.delete(
     "/{user_id}",
     status_code=status.HTTP_204_NO_CONTENT,
-    dependencies=[Depends(get_current_admin_user)],  # 👈 Protegido por admin
+    dependencies=[Depends(get_current_admin_user)],
 )
-def deactivate_existing_user(
-    user_id: UUID,
-    db: Session = Depends(get_db),
-):
-    """
-    Desativa ('soft delete') um utilizador existente.
-    Acessível apenas para administradores.
-    """
+def deactivate_existing_user(user_id: UUID, db: Session = Depends(get_db)):
+    """Desativa ('soft delete') um utilizador (apenas para admins)."""
     deactivated_user = crud_user.deactivate_user(db=db, user_id=user_id)
     if deactivated_user is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found",
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
     return Response(status_code=status.HTTP_204_NO_CONTENT)
