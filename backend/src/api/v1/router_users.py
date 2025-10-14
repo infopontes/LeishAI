@@ -1,3 +1,5 @@
+from uuid import UUID
+from fastapi import Response
 from fastapi import (
     APIRouter,
     Depends,
@@ -52,3 +54,50 @@ async def read_users_me(current_user: models.User = Depends(get_current_user)):
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud_user.get_users(db, skip=skip, limit=limit)
     return users
+
+
+@router.put(
+    "/{user_id}",
+    response_model=user_schema.UserPublic,
+    dependencies=[Depends(get_current_admin_user)],  # 👈 Protegido por admin
+)
+def update_existing_user(
+    user_id: UUID,
+    user_update: user_schema.UserUpdateAdmin,  # 👈 Usamos o novo schema
+    db: Session = Depends(get_db),
+):
+    """
+    Atualiza os dados de um utilizador existente.
+    Acessível apenas para administradores.
+    """
+    db_user = crud_user.update_user(
+        db=db, user_id=user_id, user_update=user_update
+    )
+    if db_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+    return db_user
+
+
+@router.delete(
+    "/{user_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    dependencies=[Depends(get_current_admin_user)],  # 👈 Protegido por admin
+)
+def deactivate_existing_user(
+    user_id: UUID,
+    db: Session = Depends(get_db),
+):
+    """
+    Desativa ('soft delete') um utilizador existente.
+    Acessível apenas para administradores.
+    """
+    deactivated_user = crud_user.deactivate_user(db=db, user_id=user_id)
+    if deactivated_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from typing import List
+from uuid import UUID
 from src.db import models
 from src.schemas import user as user_schema, role as role_schema
 from src.core.security import get_password_hash, verify_password
@@ -8,6 +9,11 @@ from . import crud_role
 
 def get_user_by_email(db: Session, email: str) -> models.User | None:
     return db.query(models.User).filter(models.User.email == email).first()
+
+
+def get_user_by_id(db: Session, user_id: UUID) -> models.User | None:
+    """Busca um utilizador pelo seu ID."""
+    return db.query(models.User).filter(models.User.id == user_id).first()
 
 
 def create_user(db: Session, user: user_schema.UserCreate) -> models.User:
@@ -36,11 +42,36 @@ def create_user(db: Session, user: user_schema.UserCreate) -> models.User:
     return db_user
 
 
+def update_user(
+    db: Session, user_id: UUID, user_update: user_schema.UserUpdateAdmin
+) -> models.User | None:
+    """Atualiza os dados de um utilizador existente (para admins)."""
+    db_user = get_user_by_id(db, user_id=user_id)  # 👈 Usamos a nova função
+
+    if not db_user:
+        return None
+
+    update_data = user_update.model_dump(exclude_unset=True)
+
+    for key, value in update_data.items():
+        setattr(db_user, key, value)
+
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
 def authenticate_user(
     db: Session, email: str, password: str
 ) -> models.User | None:
     user = get_user_by_email(db, email=email)
-    if not user or not verify_password(password, user.hashed_password):
+    # Adicionamos a verificação 'user.is_active'
+    if (
+        not user
+        or not verify_password(password, user.hashed_password)
+        or not user.is_active
+    ):
         return None
     return user
 
@@ -49,3 +80,18 @@ def get_users(
     db: Session, skip: int = 0, limit: int = 100
 ) -> List[models.User]:
     return db.query(models.User).offset(skip).limit(limit).all()
+
+
+def deactivate_user(db: Session, user_id: UUID) -> models.User | None:
+    """
+    Desativa um utilizador no banco de dados (soft delete).
+    """
+    db_user = get_user_by_id(db, user_id=user_id)
+    if not db_user:
+        return None
+
+    db_user.is_active = False
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user

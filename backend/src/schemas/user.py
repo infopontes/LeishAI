@@ -20,3 +20,10 @@ class UserPublic(UserBase):
     role: Optional[RolePublic] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class UserUpdateAdmin(BaseModel):
+    full_name: Optional[str] = None
+    institution: Optional[str] = None
+    role_id: Optional[UUID] = None
+    is_active: Optional[bool] = None
