@@ -1,12 +1,18 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from slowapi.errors import RateLimitExceeded
+from slowapi import _rate_limit_exceeded_handler
+from src.core.config import settings
+from src.core.limiter import limiter
+
 from src.api.v1 import (
-    router_users,
-    router_auth,
-    router_roles,
-    router_breeds,
-    router_owners,
     router_animals,
     router_assessments,
+    router_auth,
+    router_breeds,
+    router_owners,
+    router_roles,
+    router_users,
 )
 
 app = FastAPI(
@@ -15,6 +21,26 @@ app = FastAPI(
     description="API para o projeto LeishAI",
 )
 
+print(f"🧪 TESTING mode: {settings.TESTING}")
+
+
+# Ativar o Limiter na aplicação APENAS se não estiver em modo de teste
+if not settings.TESTING:
+    app.state.limiter = limiter
+    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+
+# Configuração do CORS
+origins = ["http://localhost", "http://localhost:3000"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Inclusão dos Routers
 app.include_router(router_auth.router)
 app.include_router(router_users.router)
 app.include_router(router_roles.router)

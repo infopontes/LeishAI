@@ -10,18 +10,19 @@ class Settings(BaseSettings):
     postgres_host: str = "localhost"
     postgres_port: int = 5432
 
-    # Configurações do JWT (NOVAS)
+    # Configurações do JWT
     SECRET_KEY: str
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
-    # --- VARIÁVEIS PARA O SEED ---
+    # Configurações do Seed
     DEFAULT_ADMIN_EMAIL: str
     DEFAULT_ADMIN_PASSWORD: str
     DEFAULT_VET_EMAIL: str
     DEFAULT_VET_PASSWORD: str
 
-    # Carrega as variáveis do arquivo .env
+    TESTING: bool = False
+
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8"
     )

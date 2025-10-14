@@ -1,7 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+    status,
+    Request,
+)
 from sqlalchemy.orm import Session
-
 from typing import List
+
+from src.core.limiter import limiter
 
 from src.db.crud import crud_user
 from src.schemas import user as user_schema
@@ -15,9 +22,13 @@ router = APIRouter(prefix="/users", tags=["Users"])
     "/",
     response_model=user_schema.UserPublic,
     status_code=status.HTTP_201_CREATED,
+    # Em vez de decorador, usamos o limiter como uma dependência
+    dependencies=[Depends(limiter.limit("5/hour"))],
 )
 def create_new_user(
-    user: user_schema.UserCreate, db: Session = Depends(get_db)
+    request: Request,  # 👈 Adicione o request
+    user: user_schema.UserCreate,
+    db: Session = Depends(get_db),
 ):
     db_user = crud_user.get_user_by_email(db, email=user.email)
     if db_user:
@@ -36,12 +47,8 @@ async def read_users_me(current_user: models.User = Depends(get_current_user)):
 @router.get(
     "/",
     response_model=List[user_schema.UserPublic],
-    dependencies=[Depends(get_current_admin_user)],  # 👈 Protegido por admin
+    dependencies=[Depends(get_current_admin_user)],
 )
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    """
-    Retorna uma lista de todos os utilizadores.
-    Acessível apenas para utilizadores administradores.
-    """
     users = crud_user.get_users(db, skip=skip, limit=limit)
     return users

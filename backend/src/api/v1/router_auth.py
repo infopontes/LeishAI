@@ -1,7 +1,15 @@
 from datetime import timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+    status,
+    Request,
+)
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+
+from src.core.limiter import limiter
 
 from src.core import security
 from src.core.config import settings
@@ -12,7 +20,9 @@ router = APIRouter(tags=["Authentication"])
 
 
 @router.post("/token")
+@limiter.limit("100/minute")
 def login_for_access_token(
+    request: Request,
     db: Session = Depends(get_db),
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):

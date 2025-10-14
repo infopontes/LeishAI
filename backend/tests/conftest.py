@@ -3,10 +3,26 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
 
+# Importe 'settings' para podermos modificá-lo
 from src.core.config import settings
 from src.main import app
 
-# Cria uma engine e sessão de banco de dados para os testes
+# --- INÍCIO DA CORREÇÃO DEFINITIVA ---
+
+
+@pytest.fixture(scope="function", autouse=True)
+def override_test_settings(monkeypatch):
+    """
+    Força a configuração de 'TESTING' para True ANTES DE CADA TESTE.
+    O 'scope="function"' resolve o erro de ScopeMismatch.
+    'autouse=True' garante que esta fixture é executada automaticamente.
+    """
+    monkeypatch.setattr(settings, "TESTING", True)
+
+
+# --- FIM DA CORREÇÃO DEFINITIVA ---
+
+
 TestingSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
