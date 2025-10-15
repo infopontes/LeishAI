@@ -46,7 +46,6 @@ def read_owner_by_id(owner_id: UUID, db: Session = Depends(get_db)):
     return db_owner
 
 
-# ... (os endpoints POST, GET / e GET /{owner_id} continuam aqui) ...
 @router.put(
     "/{owner_id}",
     response_model=owner_schema.OwnerPublic,
@@ -54,11 +53,11 @@ def read_owner_by_id(owner_id: UUID, db: Session = Depends(get_db)):
 )
 def update_existing_owner(
     owner_id: UUID,
-    owner_update: owner_schema.OwnerCreate,  # Reutilizamos o schema de criação para a atualização
+    owner_update: owner_schema.OwnerCreate,
     db: Session = Depends(get_db),
 ):
     """
-    Atualiza os dados de um proprietário existente.
+    Updates the details of an existing owner.
     """
     db_owner = crud_owner.update_owner(
         db=db, owner_id=owner_id, owner_update=owner_update
@@ -81,7 +80,7 @@ def delete_existing_owner(
     db: Session = Depends(get_db),
 ):
     """
-    Remove um proprietário existente.
+    Removes an existing owner.
     """
     deleted_owner = crud_owner.delete_owner(db=db, owner_id=owner_id)
     if deleted_owner is None:

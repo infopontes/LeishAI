@@ -30,7 +30,7 @@ def create_new_user(
     user: user_schema.UserCreate,
     db: Session = Depends(get_db),
 ):
-    """Cria um novo utilizador no sistema."""
+    """Creates a new user in the system."""
     db_user = crud_user.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(
@@ -42,7 +42,7 @@ def create_new_user(
 
 @router.get("/me", response_model=user_schema.UserPublic)
 async def read_users_me(current_user: models.User = Depends(get_current_user)):
-    """Retorna os dados do utilizador atualmente logado."""
+    """Returns the data of the currently logged in user."""
     return current_user
 
 
@@ -52,7 +52,7 @@ async def read_users_me(current_user: models.User = Depends(get_current_user)):
     dependencies=[Depends(get_current_admin_user)],
 )
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    """Retorna uma lista de todos os utilizadores (apenas para admins)."""
+    """Returns a list of all users (admins only)."""
     users = crud_user.get_users(db, skip=skip, limit=limit)
     return users
 
@@ -67,7 +67,7 @@ def update_existing_user(
     user_update: user_schema.UserUpdateAdmin,
     db: Session = Depends(get_db),
 ):
-    """Atualiza um utilizador existente (apenas para admins)."""
+    """Updates an existing user (admins only)."""
     db_user = crud_user.update_user(
         db=db, user_id=user_id, user_update=user_update
     )
@@ -84,7 +84,7 @@ def update_existing_user(
     dependencies=[Depends(get_current_admin_user)],
 )
 def deactivate_existing_user(user_id: UUID, db: Session = Depends(get_db)):
-    """Desativa ('soft delete') um utilizador (apenas para admins)."""
+    """Deactivates ('soft delete') a user (admins only)."""
     deactivated_user = crud_user.deactivate_user(db=db, user_id=user_id)
     if deactivated_user is None:
         raise HTTPException(

@@ -46,8 +46,8 @@ def get_current_admin_user(
     current_user: models.User = Depends(get_current_user),
 ) -> models.User:
     """
-    Verifica se o utilizador atual é um administrador.
-    Se não for, lança uma exceção HTTP 403 Forbidden.
+    Checks if the current user is an administrator.
+    If not, throws an HTTP 403 Forbidden exception.
     """
     if not current_user.role or current_user.role.name != "admin":
         raise HTTPException(

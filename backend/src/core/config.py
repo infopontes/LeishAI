@@ -3,19 +3,19 @@ from urllib.parse import quote_plus
 
 
 class Settings(BaseSettings):
-    # Configurações do Banco de Dados
+    # Database Settings
     postgres_user: str
     postgres_password: str
     postgres_db: str
     postgres_host: str = "localhost"
     postgres_port: int = 5432
 
-    # Configurações do JWT
+    # JWT Settings
     SECRET_KEY: str
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
-    # Configurações do Seed
+    # Seed Settings
     DEFAULT_ADMIN_EMAIL: str
     DEFAULT_ADMIN_PASSWORD: str
     DEFAULT_VET_EMAIL: str

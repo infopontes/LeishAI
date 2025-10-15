@@ -19,8 +19,8 @@ def create_new_role(
     role: role_schema.RoleCreate, db: Session = Depends(get_db)
 ):
     """
-    Cria uma nova role.
-    Apenas administradores podem criar roles.
+    Creates a new role.
+    Only administrators can create roles.
     """
     db_role = crud_role.get_role_by_name(db, name=role.name)
     if db_role:
@@ -39,8 +39,8 @@ def create_new_role(
 )
 def read_roles(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
-    Lista todas as roles.
-    Usuários autenticados podem visualizar.
+    Lists all roles.
+    Authenticated users can view them.
     """
     roles = crud_role.get_roles(db, skip=skip, limit=limit)
     return [role_schema.RolePublic.from_orm(r) for r in roles]

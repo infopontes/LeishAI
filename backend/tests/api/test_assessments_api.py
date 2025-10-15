@@ -7,14 +7,14 @@ from src.db.models import enums  # Precisamos dos nossos Enums
 
 def test_create_assessment(client: TestClient, db_session: Session):
     """
-    Testa a criação de um novo atendimento por um usuário autenticado.
+    Tests the creation of a new service by an authenticated user.
     """
-    # 1. Obter cabeçalhos de autenticação para um veterinário
+    # 1. Get authentication headers for a veterinarian
     vet_headers = get_authenticated_headers(
         client, db_session, "vet3@example.com"
     )
 
-    # 2. Pré-requisito: Criar um Proprietário e uma Raça
+    # 2. Prerequisite: Create an Owner and a Race
     admin_headers = get_authenticated_headers(
         client, db_session, "admin3@example.com", role_name="admin"
     )
@@ -30,7 +30,7 @@ def test_create_assessment(client: TestClient, db_session: Session):
     )
     breed_id = response_breed.json()["id"]
 
-    # 3. Pré-requisito: Criar um Animal
+    # 3. Prerequisite: Create an Animal
     animal_data = {
         "name": "Snoopy",
         "owner_id": owner_id,
@@ -42,7 +42,7 @@ def test_create_assessment(client: TestClient, db_session: Session):
     assert response_animal.status_code == 201
     animal_id = response_animal.json()["id"]
 
-    # 4. Dados do novo atendimento
+    # 4. New service data
     assessment_data = {
         "animal_id": animal_id,
         "general_state": enums.GeneralState.bom,
@@ -51,29 +51,29 @@ def test_create_assessment(client: TestClient, db_session: Session):
         "diagnosis": enums.DiagnosisResult.negativo,
     }
 
-    # 5. Fazer a requisição POST para o endpoint que queremos criar
+    # 5. Make the POST request to the endpoint we want to create
     response = client.post(
         "/assessments/", headers=vet_headers, json=assessment_data
     )
 
-    # 6. Asserções: O que esperamos que aconteça
+    # 6. Assertions: What we expect to happen
     assert response.status_code == 201, response.text
     data = response.json()
     assert data["general_state"] == assessment_data["general_state"]
     assert data["diagnosis"] == assessment_data["diagnosis"]
     assert "id" in data
-    # Verifica se os objetos aninhados foram retornados corretamente
+    # Checks if nested objects were returned correctly
     assert data["animal"]["id"] == animal_id
-    # O 'user' associado deve ser o veterinário que fez a requisição
+    # The associated 'user' must be the veterinarian who made the request
     user_making_request = client.get("/users/me", headers=vet_headers).json()
     assert data["user"]["id"] == user_making_request["id"]
 
 
 def test_read_assessments(client: TestClient, db_session: Session):
     """
-    Testa a listagem de atendimentos por um usuário autenticado.
+    Tests the list of services provided by an authenticated user.
     """
-    # 1. Preparar o ambiente: criar owner, breed, e animal
+    # 1. Prepare the environment: create owner, breed, and animal
     vet_headers = get_authenticated_headers(
         client, db_session, "vet4@example.com"
     )
@@ -99,7 +99,7 @@ def test_read_assessments(client: TestClient, db_session: Session):
     )
     animal_id = response_animal.json()["id"]
 
-    # 2. Criar um atendimento para garantir que a lista não esteja vazia
+    # 2. Create a service to ensure the list is not empty
     assessment_data = {
         "animal_id": animal_id,
         "diagnosis": enums.DiagnosisResult.negativo,
@@ -110,28 +110,25 @@ def test_read_assessments(client: TestClient, db_session: Session):
     assert response_create.status_code == 201
     created_assessment_id = response_create.json()["id"]
 
-    # 3. Fazer a requisição GET para listar os atendimentos
+    # 3. Make a GET request to list the services
     response_read = client.get("/assessments/", headers=vet_headers)
 
-    # 4. Asserções
+    # 4. Assertions
     assert response_read.status_code == 200, response_read.text
     data = response_read.json()
     assert isinstance(data, list)
     assert len(data) > 0
-    # Verifica se o ID do atendimento criado está na lista retornada
+    # Checks if the ID of the created service is in the returned list
     assert any(
         assessment["id"] == created_assessment_id for assessment in data
     )
 
 
-# ... (imports e testes existentes) ...
-
-
 def test_read_assessment_by_id(client: TestClient, db_session: Session):
     """
-    Testa a busca de um atendimento específico pelo seu ID.
+    Test the search for a specific service by your ID.
     """
-    # 1. Criar todos os pré-requisitos
+    # 1. Create all prerequisites
     vet_headers = get_authenticated_headers(
         client, db_session, "vet_get_assessment@example.com"
     )
@@ -170,12 +167,12 @@ def test_read_assessment_by_id(client: TestClient, db_session: Session):
     assert response_create.status_code == 201
     created_assessment_id = response_create.json()["id"]
 
-    # 2. Fazer a requisição GET para o endpoint que queremos criar
+    # 2. Make a GET request to the endpoint we want to create
     response_read = client.get(
         f"/assessments/{created_assessment_id}", headers=vet_headers
     )
 
-    # 3. Asserções
+    # 3. Assertions
     assert response_read.status_code == 200, response_read.text
     data = response_read.json()
     assert data["id"] == created_assessment_id
@@ -186,7 +183,7 @@ def test_read_assessment_by_id_not_found(
     client: TestClient, db_session: Session
 ):
     """
-    Testa que um erro 404 é retornado ao buscar um ID de atendimento inexistente.
+    Tests that a 404 error is returned when fetching a non-existent service ID.
     """
     non_existent_id = "123e4567-e89b-12d3-a456-426614174000"
     headers = get_authenticated_headers(
@@ -200,9 +197,9 @@ def test_read_assessment_by_id_not_found(
 
 def test_update_assessment(client: TestClient, db_session: Session):
     """
-    Testa a atualização dos dados de um atendimento existente.
+    Tests the update of data for an existing service.
     """
-    # 1. Criar todos os pré-requisitos
+    # 1. Create all prerequisites
     vet_headers = get_authenticated_headers(
         client, db_session, "vet_update_assessment@example.com"
     )
@@ -246,20 +243,20 @@ def test_update_assessment(client: TestClient, db_session: Session):
     assert response_create.status_code == 201
     created_assessment_id = response_create.json()["id"]
 
-    # 2. Dados para a atualização
+    # 2. Data for the update
     updated_data = {
         "general_state": enums.GeneralState.regular,
         "diagnosis": enums.DiagnosisResult.positivo,
     }
 
-    # 3. Fazer a requisição PUT para o endpoint que queremos criar
+    # 3. Make the PUT request to the endpoint we want to create
     response_update = client.put(
         f"/assessments/{created_assessment_id}",
         headers=vet_headers,
         json=updated_data,
     )
 
-    # 4. Asserções
+    # 4. Assertions
     assert response_update.status_code == 200, response_update.text
     data = response_update.json()
     assert data["general_state"] == updated_data["general_state"]
@@ -271,7 +268,7 @@ def test_delete_assessment(client: TestClient, db_session: Session):
     """
     Testa a remoção de um atendimento existente.
     """
-    # 1. Criar todos os pré-requisitos
+    # 1. Create all prerequisites
     vet_headers = get_authenticated_headers(
         client, db_session, "vet_delete_assessment@example.com"
     )
@@ -311,15 +308,15 @@ def test_delete_assessment(client: TestClient, db_session: Session):
     assert response_create.status_code == 201
     created_assessment_id = response_create.json()["id"]
 
-    # 2. Fazer a requisição DELETE para o endpoint
+    # 2. Make the DELETE request to the endpoint
     response_delete = client.delete(
         f"/assessments/{created_assessment_id}", headers=vet_headers
     )
 
-    # 3. Asserção para a resposta do DELETE
+    # 3. Assertion for the DELETE response
     assert response_delete.status_code == 204
 
-    # 4. Verificar se o atendimento foi realmente apagado
+    # 4. Check if the service was actually deleted
     response_get = client.get(
         f"/assessments/{created_assessment_id}", headers=vet_headers
     )

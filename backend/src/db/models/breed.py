@@ -12,5 +12,5 @@ class Breed(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, unique=True, index=True, nullable=False)
 
-    # Relacionamento: Uma raça pode ter vários animais
+    # Relationship: A breed can have several animals
     animals = relationship("Animal", back_populates="breed")

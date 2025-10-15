@@ -2,32 +2,32 @@ import uuid
 from typing import Optional
 from pydantic import BaseModel, ConfigDict
 
-# Importa os schemas públicos que criamos
+# Import the public schemas we created
 from .owner import OwnerPublic
 from .breed import BreedPublic
 
 
-# Campos compartilhados
+# Shared fields
 class AnimalBase(BaseModel):
     name: str
     original_id: Optional[str] = None
     sex: Optional[str] = None
 
 
-# Schema para criação de um animal.
-# Note que recebemos os IDs do proprietário e da raça.
+# Schema for creating an animal.
+# Note that we receive the owner and breed IDs.
 class AnimalCreate(AnimalBase):
     owner_id: uuid.UUID
     breed_id: uuid.UUID
 
 
-# Schema para atualização. Campos como owner_id e breed_id são opcionais na atualização.
+# Schema for updating. Fields like owner_id and breed_id are optional when updating.
 class AnimalUpdate(AnimalBase):
     pass
 
 
-# Schema para retorno na API.
-# Note que os campos 'owner' e 'breed' usam os schemas públicos.
+# Schema to return in the API.
+# Note that the 'owner' and 'breed' fields use the public schemas.
 class AnimalPublic(AnimalBase):
     id: uuid.UUID
     owner: OwnerPublic

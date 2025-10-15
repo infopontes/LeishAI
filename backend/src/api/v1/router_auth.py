@@ -13,14 +13,14 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
 @router.post("/token")
-@limiter.limit("100/minute")  # Usamos o decorador que funciona nos testes
+@limiter.limit("100/minute")
 def login_for_access_token(
     request: Request,
     db: Session = Depends(get_db),
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
     """
-    Autentica o utilizador e gera um token JWT de acesso.
+    Authenticates the user and generates a JWT access token.
     """
     user = crud_user.authenticate_user(
         db, email=form_data.username, password=form_data.password

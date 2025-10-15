@@ -16,10 +16,10 @@ class AssessmentBase(BaseModel):
     muzzle_ear_lesion: enums.PresenceAbsence | None = None
     lymph_nodes: enums.LesionSeverity | None = None
     blepharitis: enums.PresenceAbsence | None = None
-    conjunctivitis: str | None = None  # 👈 Alterado para str
+    conjunctivitis: str | None = None
     alopecia: enums.PresenceAbsence | None = None
     bleeding: enums.PresenceAbsence | None = None
-    skin_lesion: str | None = None  # 👈 Alterado para str
+    skin_lesion: str | None = None
     muzzle_lip_depigmentation: enums.PresenceAbsence | None = None
     culture: enums.DiagnosisResult | None = None
     slide: enums.DiagnosisResult | None = None
@@ -30,8 +30,8 @@ class AssessmentCreate(AssessmentBase):
     animal_id: uuid.UUID
 
 
-# Schema para atualização. Note que animal_id não está aqui,
-# pois não permitiremos a alteração do animal de um atendimento.
+# Schema for updating. Note that animal_id is not here,
+# as we will not allow changing the animal for a service.
 class AssessmentUpdate(AssessmentBase):
     pass
 

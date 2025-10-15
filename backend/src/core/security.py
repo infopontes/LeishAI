@@ -9,30 +9,30 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verifica se a senha fornecida corresponde à senha com hash."""
+    """Checks if the provided password matches the hashed password."""
     return pwd_context.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password: str) -> str:
-    """Gera o hash de uma senha."""
+    """Generates a hash of a password."""
     return pwd_context.hash(password)
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """
-    Cria um novo token de acesso (JWT).
+    Creates a new access token (JWT).
     """
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
-        # Se não for fornecido um tempo de expiração, define um padrão de 15 minutos
+        # If no expiration time is provided, sets a default of 15 minutes
         expire = datetime.now(timezone.utc) + timedelta(minutes=15)
 
-    # Adiciona o tempo de expiração ao "payload" do token
+    # Adds expiration time to token payload
     to_encode.update({"exp": expire})
 
-    # Codifica o token usando a chave secreta e o algoritmo definidos nas configurações
+    # Encrypts the token using the secret key and algorithm defined in the settings
     encoded_jwt = jwt.encode(
         to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM
     )

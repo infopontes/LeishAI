@@ -25,8 +25,8 @@ def create_new_assessment(
     ),  # 👈 Obtém o usuário logado
 ):
     """
-    Cria um novo atendimento (avaliação clínica) para um animal.
-    O atendimento é associado ao usuário (veterinário) que está fazendo a requisição.
+    Creates a new appointment (clinical evaluation) for an animal.
+    The appointment is associated with the user (veterinarian) making the request.
     """
     return crud_assessment.create_assessment(
         db=db, assessment=assessment, user_id=current_user.id
@@ -42,7 +42,7 @@ def read_assessments(
     skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 ):
     """
-    Retorna uma lista de atendimentos.
+    Returns a list of appointments.
     """
     assessments = crud_assessment.get_assessments(db, skip=skip, limit=limit)
     return assessments
@@ -51,13 +51,11 @@ def read_assessments(
 @router.get(
     "/{assessment_id}",
     response_model=assessment_schema.AssessmentPublic,
-    dependencies=[
-        Depends(get_current_user)
-    ],  # Qualquer utilizador logado pode ver
+    dependencies=[Depends(get_current_user)],
 )
 def read_assessment_by_id(assessment_id: UUID, db: Session = Depends(get_db)):
     """
-    Busca um único atendimento pelo seu ID.
+    Search for a single service using your ID.
     """
     db_assessment = crud_assessment.get_assessment_by_id(
         db, assessment_id=assessment_id
@@ -77,14 +75,12 @@ def read_assessment_by_id(assessment_id: UUID, db: Session = Depends(get_db)):
 )
 def update_existing_assessment(
     assessment_id: UUID,
-    assessment_update: assessment_schema.AssessmentUpdate,  # Usamos o novo schema
+    assessment_update: assessment_schema.AssessmentUpdate,
     db: Session = Depends(get_db),
 ):
     """
-    Atualiza os dados de um atendimento existente.
+    Updates the data of an existing service.
     """
-    # Futuramente, podemos adicionar lógica de permissão aqui,
-    # ex: apenas o criador do atendimento ou um admin pode atualizar.
     db_assessment = crud_assessment.update_assessment(
         db=db, assessment_id=assessment_id, assessment_update=assessment_update
     )
@@ -106,7 +102,7 @@ def delete_existing_assessment(
     db: Session = Depends(get_db),
 ):
     """
-    Remove um atendimento existente.
+    Removes an existing service.
     """
     deleted_assessment = crud_assessment.delete_assessment(
         db=db, assessment_id=assessment_id

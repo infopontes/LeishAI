@@ -14,7 +14,7 @@ class Assessment(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     original_id = Column(String, nullable=True)
 
-    # Campos clínicos
+    # Clinical fields
     general_state = Column(Enum(enums.GeneralState), nullable=True)
     ectoparasites = Column(Enum(enums.Severity), nullable=True)
     nutritional_state = Column(Enum(enums.NutritionalState), nullable=True)
@@ -32,13 +32,12 @@ class Assessment(Base):
         Enum(enums.PresenceAbsence), nullable=True
     )
 
-    # ... (resto do arquivo continua o mesmo)
-    # Resultados laboratoriais
+    # Laboratory results
     culture = Column(Enum(enums.DiagnosisResult), nullable=True)
     slide = Column(Enum(enums.DiagnosisResult), nullable=True)
     diagnosis = Column(Enum(enums.DiagnosisResult), nullable=True)
 
-    # Chaves estrangeiras
+    # Foreign keys
     animal_id = Column(
         UUID(as_uuid=True), ForeignKey("animals.id"), nullable=False
     )
@@ -46,10 +45,10 @@ class Assessment(Base):
         UUID(as_uuid=True), ForeignKey("users.id"), nullable=False
     )
 
-    # Relacionamentos
+    # Relationships
     animal = relationship("Animal", back_populates="assessments")
     user = relationship("User", back_populates="assessments")
 
-    # Auditoria
+    # Audit
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())

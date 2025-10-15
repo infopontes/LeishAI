@@ -3,7 +3,6 @@ import logging
 from sqlalchemy.orm import Session
 from pathlib import Path
 
-# Importa todos os CRUDs e Schemas que vamos precisar
 import src.db.crud.crud_owner as crud_owner
 import src.db.crud.crud_breed as crud_breed
 import src.db.crud.crud_animal as crud_animal
@@ -102,27 +101,26 @@ def seed_from_csv(db: Session) -> None:
         Path(__file__).resolve().parent.parent.parent / "dataset.csv"
     )
 
-    # --- INÍCIO DA ATUALIZAÇÃO ---
-    # Adicionamos logging de diagnóstico
+    # We added diagnostic logging
     try:
         with open(csv_file_path, mode="r", encoding="latin-1") as csvfile:
-            # Carrega todas as linhas para a memória primeiro
+            # Load all lines into memory first
             reader = list(csv.DictReader(csvfile, delimiter=";"))
             total_rows = len(reader)
             logger.info(
                 f"Found {total_rows} rows in CSV file. Starting import..."
             )
 
-            # Agora itera sobre a lista de linhas
+            # Now iterate over the list of lines
             for i, row in enumerate(reader):
-                # Imprime o progresso a cada 50 linhas
+                # Print progress every 50 lines
                 if (i + 1) % 50 == 0:
                     logger.info(f"Processing row {i + 1}/{total_rows}...")
 
                 if not row.get("id_db_original"):
                     continue
 
-                # Lógica do Proprietário
+                # Owner's Logic
                 owner_name_from_csv = row.get("proprietario")
                 if owner_name_from_csv and owner_name_from_csv.strip():
                     owner = crud_owner.get_owner_by_name(
@@ -136,14 +134,14 @@ def seed_from_csv(db: Session) -> None:
                 else:
                     owner = default_owner
 
-                # Lógica da Raça
+                # Logic of Race
                 breed_name = row.get("raca") or "SRD (Sem Raça Definida)"
                 breed = crud_breed.get_breed_by_name(db, name=breed_name)
                 if not breed:
                     breed_in = breed_schema.BreedCreate(name=breed_name)
                     breed = crud_breed.create_breed(db, breed=breed_in)
 
-                # Lógica do Animal
+                # Animal Logic
                 animal_original_id = row["id_db_original"]
                 animal = crud_animal.get_animal_by_original_id(
                     db, original_id=animal_original_id
@@ -158,7 +156,7 @@ def seed_from_csv(db: Session) -> None:
                     )
                     animal = crud_animal.create_animal(db, animal=animal_in)
 
-                # Criação do Atendimento
+                # Creation of Service
                 clinical_data = map_clinical_data(row)
                 assessment_in = assessment_schema.AssessmentCreate(
                     animal_id=animal.id, **clinical_data
@@ -176,6 +174,5 @@ def seed_from_csv(db: Session) -> None:
             f"An unexpected error occurred during CSV processing: {e}",
             exc_info=True,
         )
-    # --- FIM DA ATUALIZAÇÃO ---
 
     logger.info("--- Finished seeding from CSV ---")

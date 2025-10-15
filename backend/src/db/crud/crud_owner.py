@@ -25,7 +25,7 @@ def get_owners(
 
 def get_owner_by_name(db: Session, name: str) -> models.Owner | None:
     """
-    Busca um proprietário pelo seu nome (case-insensitive).
+    Search for an owner by their name (case-insensitive).
     """
     return db.query(models.Owner).filter(models.Owner.name.ilike(name)).first()
 
@@ -34,16 +34,16 @@ def update_owner(
     db: Session, owner_id: UUID, owner_update: owner_schema.OwnerCreate
 ) -> models.Owner | None:
     """
-    Atualiza os dados de um proprietário existente.
+    Updates the details of an existing owner.
     """
     db_owner = get_owner_by_id(db, owner_id=owner_id)
     if not db_owner:
         return None
 
-    # Obtém os dados do schema de atualização como um dicionário
+    # Gets the update schema data as a dictionary
     update_data = owner_update.model_dump(exclude_unset=True)
 
-    # Itera sobre os dados e atualiza os campos do objeto SQLAlchemy
+    # Iterates over the data and updates the fields of the SQLAlchemy object
     for key, value in update_data.items():
         setattr(db_owner, key, value)
 
@@ -55,7 +55,7 @@ def update_owner(
 
 def delete_owner(db: Session, owner_id: UUID) -> models.Owner | None:
     """
-    Remove um proprietário do banco de dados pelo seu ID.
+    Removes an owner from the database by their ID.
     """
     db_owner = get_owner_by_id(db, owner_id=owner_id)
     if not db_owner:

@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseModel, ConfigDict
 
 
-# Campos compartilhados
+# Shared fields
 class OwnerBase(BaseModel):
     name: str
     phone: Optional[str] = None
@@ -13,12 +13,12 @@ class OwnerBase(BaseModel):
     state: Optional[str] = None
 
 
-# Schema para criação de um proprietário
+# Schema for creating an owner
 class OwnerCreate(OwnerBase):
     pass
 
 
-# Schema para retorno na API (inclui o ID)
+# Schema to return in the API (includes the ID)
 class OwnerPublic(OwnerBase):
     id: uuid.UUID
     model_config = ConfigDict(from_attributes=True)

@@ -17,6 +17,6 @@ class Owner(Base):
     city = Column(String, nullable=True)
     state = Column(String, nullable=True)  # uf
 
-    # Relacionamento: Um proprietário pode ter vários animais.
-    # 'animals' será uma lista de objetos Animal.
+    # Relationship: An owner can have multiple animals.
+    # 'animals' will be a list of Animal objects.
     animals = relationship("Animal", back_populates="owner")
