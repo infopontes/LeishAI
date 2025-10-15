@@ -6,10 +6,20 @@ authors = [
     {name = "Marcelo Pontes Rodrigues",email = "infopontes@gmail.com"}
 ]
 readme = "../README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<4.0"
 dependencies = [
-    "fastapi (>=0.117.1,<0.118.0)",
-    "uvicorn[standard] (>=0.37.0,<0.38.0)"
+    "fastapi[standard] (>=0.118.0,<0.119.0)",
+    "uvicorn[standard] (>=0.37.0,<0.38.0)",
+    "sqlalchemy (>=2.0.43,<3.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "pydantic-settings (>=2.11.0,<3.0.0)",
+    "alembic (>=1.16.5,<2.0.0)",
+    "passlib[bcrypt] (>=1.7.4,<2.0.0)",
+    "bcrypt (<4.0.0)",
+    "python-jose[cryptography] (>=3.5.0,<4.0.0)",
+    "python-multipart (>=0.0.20,<0.0.21)",
+    "slowapi (>=0.1.9,<0.2.0)",
 ]
 
 
@@ -20,14 +30,45 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 package-mode = false
 
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+preview = true
+
+[tool.ruff.format]
+preview = true
+
+[tool.pytest.ini_options]
+pythonpath = "."
+
+[tool.taskipy.tasks]
+lint = 'ruff check'
+pre_format = 'ruff check --fix'
+format = 'ruff format'
+run = 'fastapi dev src/main.py'
+pre_test = 'task lint'
+test = 'pytest -s -x --cov=src -vv'
+post_test = 'coverage html'
+dbstart = 'docker compose up -d'
+dbstop = 'docker compose stop'
+dbps = 'docker compose ps'
+dbpsql = 'docker compose exec db psql -U dsleish_user -d dsleish_db'
+seed = "python scripts/seed.py"
+
 [dependency-groups]
 dev = [
-    "poethepoet (>=0.37.0,<0.38.0)"
+    "poethepoet (>=0.37.0,<0.38.0)",
+    "pytest (>=8.4.2,<9.0.0)",
+    "pytest-cov (>=7.0.0,<8.0.0)",
+    "taskipy (>=1.14.1,<2.0.0)",
+    "ruff (>=0.13.2,<0.14.0)",
+    "httpx (>=0.28.1,<0.29.0)"
 ]
 
 [tool.poe.tasks]
 # Comando para rodar o servidor em modo de desenvolvimento
-dev = "uvicorn main:app --reload"
+#dev = "uvicorn src.main:app --reload"
 
 # Comando para rodar o servidor em modo de "produção"
-start = "uvicorn main:app --host 0.0.0.0"
+start = "uvicorn src.main:app --host 0.0.0.0"
