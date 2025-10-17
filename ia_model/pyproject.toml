@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "ia-model"
+version = "0.1.0"
+description = ""
+authors = ["Marcelo Pontes Rodrigues <infopontes@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+pandas = "^2.2.2"
+scikit-learn = "^1.5.0"
+sqlalchemy = {extras = ["psycopg2"], version = "^2.0.31"}
+python-dotenv = "^1.0.1"
+jupyterlab = "^4.2.3"
+psycopg2-binary = "^2.9.11"
+seaborn = "^0.13.2"
+matplotlib = "^3.10.7"
+xgboost = {version = "2.1.2", source = "pypi"}
+
+[tool.poetry.group.dev.dependencies]
+taskipy = "^1.14.1"
+
+[tool.taskipy.tasks]
+loader = "python src/data/data_loader.py"
+notebook = "jupyter lab"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
