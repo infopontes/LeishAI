@@ -14,6 +14,7 @@ from src.api.v1 import (
     router_owners,
     router_roles,
     router_users,
+    router_prediction,
 )
 
 app = FastAPI(
@@ -46,6 +47,7 @@ app.include_router(router_breeds.router)
 app.include_router(router_owners.router)
 app.include_router(router_animals.router)
 app.include_router(router_assessments.router)
+app.include_router(router_prediction.router)
 
 
 @app.get("/", tags=["Root"])
