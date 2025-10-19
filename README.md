@@ -64,25 +64,124 @@ This repository contains the **backend API** and the **machine learning model de
 ## 📂 Project Structure
 
 ```
-LeishAI/
-├── backend/                     # FastAPI backend source
-│   ├── alembic/                 # Alembic migrations
-│   ├── ml_models/               # Saved ML model artifacts
-│   ├── scripts/                 # Data seeding scripts
-│   ├── src/                     # API, DB, Schemas, Core logic
-│   ├── tests/                   # Pytest suite
-│   ├── .env.example             # Example environment variables
-│   ├── docker-compose.yml
+📦 Project Root
+├── README.md
+│
+├── backend/                        # FastAPI backend project
+│   ├── alembic/                    # Database migrations (Alembic)
+│   │   ├── env.py
+│   │   ├── script.py.mako
+│   │   └── versions/               # Migration scripts
+│   │       ├── 53bf8d2f70e6_create_user_table.py
+│   │       ├── 15b1870dd74c_add_owner_and_animal_models.py
+│   │       ├── ...
+│   │       └── fe8353f6c31b_add_full_name_and_institution_to_user_.py
+│   │
+│   ├── alembic.ini                 # Alembic configuration file
+│   ├── dataset.csv                 # Dataset used for testing or seeding
+│   ├── docker-compose.yml          # Docker setup for backend services
+│   ├── ml_models/                  # Pre-trained ML models
+│   │   ├── leish_model_v1.joblib
+│   │   └── training_columns_v1.joblib
+│   │
+│   ├── scripts/                    # Database seeding and utilities
+│   │   ├── seed.py
+│   │   └── seeds/
+│   │       ├── seed_breeds.py
+│   │       ├── seed_from_csv.py
+│   │       └── seed_users.py
+│   │
+│   ├── src/                        # Core backend source code
+│   │   ├── main.py                 # FastAPI entry point
+│   │   │
+│   │   ├── api/v1/                 # API routes (versioned)
+│   │   │   ├── dependencies.py
+│   │   │   ├── router_animals.py
+│   │   │   ├── router_assessments.py
+│   │   │   ├── router_auth.py
+│   │   │   ├── router_breeds.py
+│   │   │   ├── router_owners.py
+│   │   │   ├── router_prediction.py
+│   │   │   ├── router_roles.py
+│   │   │   └── router_users.py
+│   │   │
+│   │   ├── core/                   # Core configurations and security
+│   │   │   ├── config.py
+│   │   │   ├── limiter.py
+│   │   │   └── security.py
+│   │   │
+│   │   ├── db/                     # Database access and models
+│   │   │   ├── database.py
+│   │   │   ├── crud/               # CRUD operations
+│   │   │   │   ├── crud_animal.py
+│   │   │   │   ├── crud_assessment.py
+│   │   │   │   ├── crud_breed.py
+│   │   │   │   ├── crud_owner.py
+│   │   │   │   ├── crud_role.py
+│   │   │   │   └── crud_user.py
+│   │   │   └── models/             # SQLAlchemy models
+│   │   │       ├── animal.py
+│   │   │       ├── assessment.py
+│   │   │       ├── base.py
+│   │   │       ├── breed.py
+│   │   │       ├── enums.py
+│   │   │       ├── owner.py
+│   │   │       ├── role.py
+│   │   │       └── user.py
+│   │   │
+│   │   ├── ml/                     # ML service integration
+│   │   │   └── prediction_service.py
+│   │   │
+│   │   └── schemas/                # Pydantic schemas
+│   │       ├── animal.py
+│   │       ├── assessment.py
+│   │       ├── breed.py
+│   │       ├── owner.py
+│   │       ├── prediction.py
+│   │       ├── role.py
+│   │       └── user.py
+│   │
+│   ├── tests/                      # Unit and integration tests
+│   │   ├── conftest.py
+│   │   ├── test_main.py
+│   │   ├── test_users_db.py
+│   │   └── api/
+│   │       ├── test_animals_api.py
+│   │       ├── test_assessments_api.py
+│   │       ├── test_breeds_api.py
+│   │       ├── test_owners_api.py
+│   │       ├── test_prediction_api.py
+│   │       ├── test_users_api.py
+│   │       └── test_utils.py
+│   │
+│   ├── poetry.lock
 │   └── pyproject.toml
 │
-├── ia_model/                    # ML model development
-│   ├── data/                    # Raw & processed datasets
-│   ├── models/                  # Trained model artifacts
-│   ├── notebooks/               # Jupyter notebooks (EDA & training)
-│   ├── src/                     # ML utilities and data loaders
-│   └── pyproject.toml
+├── frontend/                       # Placeholder for frontend project
 │
-└── README.md                    # This file
+└── ia_model/                       # Machine Learning workspace
+    ├── data/                       # Raw datasets
+    │   └── raw/leish_dataset.csv
+    │
+    ├── models/                     # Trained ML models
+    │   ├── leish_model_v1.joblib
+    │   └── training_columns_v1.joblib
+    │
+    ├── notebooks/                  # Jupyter notebooks (EDA, training, etc.)
+    │   ├── 01-EDA.ipynb
+    │   ├── 02-Model_Training.ipynb
+    │   ├── 03-Advanced_Imbalanced_Learning.ipynb
+    │   ├── 04-Undersampling_Experiment.ipynb
+    │   └── 05-SVM_Experiments.ipynb
+    │
+    ├── src/                        # Python modules for ML workflow
+    │   ├── data/data_loader.py
+    │   ├── models/
+    │   └── preprocessing/
+    │
+    ├── scripts/                    # Utility scripts for data/model handling
+    ├── poetry.lock
+    └── pyproject.toml
 ```
 
 ---
