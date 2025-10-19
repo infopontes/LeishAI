@@ -16,13 +16,14 @@ psycopg2-binary = "^2.9.11"
 seaborn = "^0.13.2"
 matplotlib = "^3.10.7"
 xgboost = {version = "2.1.2", source = "pypi"}
+imbalanced-learn = "^0.14.0"
 
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.14.1"
 
 [tool.taskipy.tasks]
 loader = "python src/data/data_loader.py"
-notebook = "jupyter lab"
+notebook = "jupyter lab --no-browser --port=8989"
 
 [build-system]
 requires = ["poetry-core"]

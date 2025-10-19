@@ -16,6 +16,12 @@ __pycache__/
 .env
 .env.*
 
+# docker
+# Volumes e dados persistentes do Docker
+volumes/
+postgres_data/
+data/
+
 # Cache de testes e relatórios de cobertura
 .pytest_cache/
 /htmlcov/
@@ -46,7 +52,7 @@ pnpm-debug.log*
 # Checkpoints do Jupyter Notebook
 .ipynb_checkpoints/
 # Opcional: Descomente a linha abaixo se o seu dataset for muito grande
-# *.csv
+*.csv
 
 
 # --- Arquivos de SO e Editores ---
@@ -58,3 +64,8 @@ Thumbs.db
 
 # VS Code
 .vscode/
+
+# Test & Coverage Reports
+.coverage
+htmlcov/
+.pytest_cache/
