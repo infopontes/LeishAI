@@ -1,0 +1,15 @@
+{
+  "greeting": "DSLeish (Data Science for Leishmaniasis Studies)",
+  "language": "Language",
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "login": "Login"
+  },
+  "footer": {
+    "version": "Version",
+    "lastUpdatedLabel": "Updated on",
+    "developedBy": "Developed by",
+    "developerTitle": "PhD Candidate"
+  }
+}

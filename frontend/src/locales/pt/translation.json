@@ -1,0 +1,15 @@
+{
+  "greeting": "DSLeish (Ciência de Dados para Estudos sobre Leishmaniose)",
+  "language": "Idioma",
+  "menu": {
+    "home": "Início",
+    "about": "Sobre",
+    "login": "Entrar"
+  },
+  "footer": {
+    "version": "Versão",
+    "lastUpdatedLabel": "Atualizado em",
+    "developedBy": "Desenvolvido por",
+    "developerTitle": "Doutorando"
+  }
+}
