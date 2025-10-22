@@ -1,0 +1,54 @@
+/* src/styles/Header.css */
+.header {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 10px 20px;
+  border-bottom: 1px solid #dee2e6; /* Subtle border */
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between; /* Pushes items apart */
+  align-items: center;
+}
+
+.navLinks {
+  display: flex;
+  gap: 20px; /* Space between links */
+}
+
+.navLink {
+  text-decoration: none;
+  color: #007bff; /* Blue link color */
+  font-weight: bold;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
+
+/* Styles for LanguageSwitcher can also go here or in its own file */
+.languageSwitcherContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.languageButton {
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.languageButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.flagImage {
+  width: 24px;
+  height: auto;
+  display: block;
+}

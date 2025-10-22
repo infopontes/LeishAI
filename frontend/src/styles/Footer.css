@@ -1,0 +1,22 @@
+/* src/styles/Footer.css */
+.footer {
+  background-color: #343a40; /* Dark background */
+  color: #f8f9fa; /* Light text */
+  padding: 20px;
+  margin-top: auto; /* Pushes footer to the bottom */
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.footerText {
+  margin: 5px 0;
+}
+
+.footerLink {
+  color: #adb5bd; /* Lighter gray for link */
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}

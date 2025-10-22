@@ -1,14 +1,13 @@
 // src/components/LanguageSwitcher.jsx
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+// We can import styles directly related to this component here or from Header.css
+// If importing from Header.css, no separate import needed if Header imports it.
+// Let's assume styles are in Header.css for simplicity for now.
 
-// Use the actual image paths relative to the public folder
 const flags = {
-  en: '/images/us.svg', // Path to US flag
-  pt: '/images/br.svg', // Path to Brazil flag
-  es: '/images/es.svg', // Path to Spain flag
+  en: '/images/us.svg', pt: '/images/br.svg', es: '/images/es.svg',
 };
-
 const languages = [
   { code: 'en', name: 'English', flag: flags.en },
   { code: 'pt', name: 'Português', flag: flags.pt },
@@ -17,52 +16,23 @@ const languages = [
 
 function LanguageSwitcher() {
   const { i18n } = useTranslation();
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+  const changeLanguage = (lng) => { i18n.changeLanguage(lng); };
 
   return (
-    <div style={styles.container}>
+    <div className="languageSwitcherContainer"> {/* Use className */}
       {languages.map((lang) => (
         <button
           key={lang.code}
-          style={{
-            ...styles.button,
-            // Add slight dimming effect if disabled
-            opacity: i18n.resolvedLanguage === lang.code ? 0.5 : 1, 
-            cursor: i18n.resolvedLanguage === lang.code ? 'default' : 'pointer',
-          }}
+          className="languageButton" // Use className
           onClick={() => changeLanguage(lang.code)}
           disabled={i18n.resolvedLanguage === lang.code} 
           title={lang.name}
         >
-          {/* Use img tag for the flag */}
-          <img src={lang.flag} alt={`${lang.name} flag`} style={styles.flag} />
+          <img src={lang.flag} alt={`${lang.name} flag`} className="flagImage" /> {/* Use className */}
         </button>
       ))}
     </div>
   );
 }
-
-// Updated styles
-const styles = {
-  container: {
-    display: 'flex',
-    gap: '10px',
-    alignItems: 'center', // Align flags vertically
-  },
-  button: {
-    background: 'none',
-    border: 'none',
-    padding: '0',
-    lineHeight: 0, // Prevent extra space around image
-  },
-  flag: {
-    width: '24px', // Set a specific size for the flags
-    height: 'auto',
-    display: 'block', // Ensure image behaves like a block element
-  }
-};
-
+// Remove the inline styles object 'styles'
 export default LanguageSwitcher;
