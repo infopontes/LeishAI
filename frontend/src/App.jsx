@@ -1,26 +1,34 @@
 // src/App.jsx
 import React from 'react';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useTranslation } from 'react-i18next';
-import './styles/App.css';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import LoginPage from './pages/LoginPage';
+import './styles/App.css'; 
 
-function App() {
-  const { t } = useTranslation();
-
+function Layout() {
   return (
-    <div className="appContainer"> 
-      <Header /> 
+    <div className="appContainer">
+      <Header />
       <main className="mainContent">
-        <h1>{t('greeting')}</h1>
-        <img 
-          src="/images/dsleish-hero.png" 
-          alt="DSLeish main visual" 
-          className="heroImage" 
-        />
+        <Outlet />
       </main>
       <Footer />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="login" element={<LoginPage />} />
+      </Route>
+    </Routes>
   );
 }
 

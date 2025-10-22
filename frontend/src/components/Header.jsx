@@ -1,6 +1,7 @@
 // src/components/Header.jsx
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import LanguageSwitcher from './LanguageSwitcher';
 import '../styles/Header.css';
 
@@ -11,9 +12,9 @@ function Header() {
     <header className="header">
       <nav className="nav">
         <div className="navLinks">
-          <a href="/" className="navLink">{t('menu.home')}</a>
-          <a href="/about" className="navLink">{t('menu.about')}</a>
-          <a href="/login" className="navLink">{t('menu.login')}</a>
+          <Link to="/" className="navLink">{t('menu.home')}</Link>
+          <Link to="/about" className="navLink">{t('menu.about')}</Link>
+          <Link to="/login" className="navLink">{t('menu.login')}</Link>
         </div>
         <LanguageSwitcher />
       </nav>
