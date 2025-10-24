@@ -1,15 +1,110 @@
 {
   "greeting": "DSLeish (Data Science for Leishmaniasis Studies)",
   "language": "Language",
-  "menu": {
-    "home": "Home",
-    "about": "About",
-    "login": "Login"
-  },
+  "menu": { "home": "Home", "about": "About", "login": "Login" },
   "footer": {
     "version": "Version",
     "lastUpdatedLabel": "Updated on",
     "developedBy": "Developed by",
     "developerTitle": "PhD Candidate"
-  }
+  },
+  "login": {
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "loading": "Logging in...",
+    "error": {
+      "missingFields": "Please fill in both email and password.",
+      "invalidCredentials": "Incorrect email or password."
+    }
+  },
+  "prediction": {
+    "title": "Make a Prediction",
+    "description": "Enter the clinical data below to get a diagnosis prediction.",
+    "submitButton": "Predict Diagnosis",
+    "loading": "Predicting...",
+    "resultTitle": "Prediction Result",
+    "diagnosis": "Diagnosis",
+    "confidence": "Confidence Score",
+    "error": {
+      "general": "An error occurred while making the prediction.",
+      "fetchBreeds": "Failed to load breeds. Please try again."
+    },
+    "fields": {
+      "general_state": "General State",
+      "ectoparasites": "Ectoparasites",
+      "nutritional_state": "Nutritional State",
+      "coat": "Coat",
+      "nails": "Nails",
+      "mucosa_color": "Mucosa Color",
+      "muzzle_ear_lesion": "Muzzle/Ear Lesion",
+      "lymph_nodes": "Lymph Nodes",
+      "blepharitis": "Blepharitis",
+      "conjunctivitis": "Conjunctivitis",
+      "alopecia": "Alopecia",
+      "bleeding": "Bleeding",
+      "skin_lesion": "Skin Lesion",
+      "muzzle_lip_depigmentation": "Muzzle/Lip Depigmentation",
+      "animal_sex": "Animal Sex",
+      "breed_name": "Breed"
+    }
+  },
+  "options": {
+    "select": "-- Select --",
+    "general_state": {
+      "Bom": "Good",
+      "Moderado": "Moderate",
+      "Grave": "Severe (State)",
+      "Ruim": "Poor"
+    },
+    "ectoparasites": {
+      "Ausente": "Absent",
+      "Leve": "Mild",
+      "Grave": "Severe"
+    },
+    "nutritional_state": {
+      "Adequado_Eutrófico": "Adequate/Eutrophic",
+      "Leve_a_Moderado": "Mild to Moderate",
+      "Grave_Caquético": "Severe (Cachectic)"
+    },
+    "coat": {
+      "Normal": "Normal",
+      "Leves_Moderadas": "Mild/Moderate",
+      "Grave": "Severe"
+    },
+    "nails": {
+      "Normal": "Normal",
+      "Alterada": "Altered"
+    },
+    "mucosa_color": {
+      "Normal__Rosa-claro_": "Normal (Light Pink)",
+      "Levemente_Hipercorada": "Slightly Hyperemic",
+      "Congesta": "Congested"
+    },
+    "presence_absence": {
+      "Presente": "Present",
+      "Ausente": "Absent"
+    },
+    "lymph_nodes": {
+      "Normal": "Normal",
+      "Aumentados": "Enlarged"
+    },
+    "conjunctivitis": {
+      "Ausente": "Absent",
+      "Presente": "Present",
+      "Conjuntivite_Leve": "Mild Conjunctivitis",
+      "Ceratoconjuntivite_Grave": "Severe Keratoconjunctivitis"
+    },
+    "skin_lesion": {
+      "Ausente": "Absent",
+      "Presente": "Present",
+      "Leve_Moderada": "Mild/Moderate",
+      "Grave_Generalizada": "Severe/Generalized"
+    },
+    "animal_sex": {
+      "M": "Male",
+      "F": "Female"
+    }
+  },
+  "diagnosis": { "Positivo": "Positive", "Negativo": "Negative" },
+  "loading": { "breeds": "Loading breeds..." }
 }

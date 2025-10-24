@@ -13,7 +13,7 @@ from src.api.v1 import (
     router_breeds,
     router_owners,
     router_roles,
-    router_users,
+    router_users,  # Mantendo a sua estrutura atual
     router_prediction,
 )
 
@@ -24,13 +24,18 @@ app = FastAPI(
 )
 
 # Enable Limiter in the application
-# We used the environment variable approach that was working for testing
+# Mantendo a sua abordagem com settings.TESTING
 if not settings.TESTING:
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
-# Configuração do CORS
-origins = ["http://localhost", "http://localhost:3000"]
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -39,9 +44,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Inclusion of Routers
+# Inclusion of Routers (mantendo a sua estrutura atual)
 app.include_router(router_auth.router)
-app.include_router(router_users.router)
+app.include_router(router_users.router)  # Mantido
 app.include_router(router_roles.router)
 app.include_router(router_breeds.router)
 app.include_router(router_owners.router)

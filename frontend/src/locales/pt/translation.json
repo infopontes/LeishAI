@@ -11,5 +11,109 @@
     "lastUpdatedLabel": "Atualizado em",
     "developedBy": "Desenvolvido por",
     "developerTitle": "Doutorando"
+  },
+  "login": {
+    "emailLabel": "Endereço de Email",
+    "passwordLabel": "Palavra-passe",
+    "loading": "A entrar...",
+    "error": {
+      "missingFields": "Por favor, preencha o email e a palavra-passe.",
+      "invalidCredentials": "Email ou palavra-passe incorretos."
+    }
+  },
+  "prediction": {
+    "title": "Fazer uma Previsão",
+    "description": "Insira os dados clínicos abaixo para obter uma previsão de diagnóstico.",
+    "submitButton": "Prever Diagnóstico",
+    "loading": "A prever...",
+    "resultTitle": "Resultado da Previsão",
+    "diagnosis": "Diagnóstico",
+    "confidence": "Nível de Confiança",
+    "error": {
+      "general": "Ocorreu um erro ao fazer a previsão.",
+      "fetchBreeds": "Falha ao carregar raças. Tente novamente."
+    },
+    "fields": {
+      "general_state": "Estado Geral",
+      "ectoparasites": "Ectoparasitas",
+      "nutritional_state": "Estado Nutricional",
+      "coat": "Pelagem",
+      "nails": "Unhas",
+      "mucosa_color": "Cor da Mucosa",
+      "muzzle_ear_lesion": "Lesão Focinho/Orelha",
+      "lymph_nodes": "Linfonodos",
+      "blepharitis": "Blefarite",
+      "conjunctivitis": "Conjuntivite",
+      "alopecia": "Alopecia",
+      "bleeding": "Sangramento",
+      "skin_lesion": "Lesão de Pele",
+      "muzzle_lip_depigmentation": "Despigmentação Focinho/Lábio",
+      "animal_sex": "Sexo do Animal",
+      "breed_name": "Raça"
+    }
+  },
+  "options": {
+    "select": "-- Selecione --",
+    "general_state": {
+      "Bom": "Bom",
+      "Moderado": "Moderado",
+      "Grave": "Grave",
+      "Ruim": "Ruim"
+    },
+    "ectoparasites": {
+      "Ausente": "Ausente",
+      "Leve": "Leve",
+      "Grave": "Grave"
+    },
+    "nutritional_state": {
+      "Adequado_Eutrófico": "Adequado/Eutrófico",
+      "Leve_a_Moderado": "Leve a Moderado",
+      "Grave_Caquético": "Grave/Caquético"
+    },
+    "coat": {
+      "Normal": "Normal",
+      "Leves_Moderadas": "Leves/Moderadas",
+      "Grave": "Grave"
+    },
+    "nails": {
+      "Normal": "Normal",
+      "Alterada": "Alterada"
+    },
+    "mucosa_color": {
+      "Normal__Rosa-claro_": "Normal (Rosa-claro)",
+      "Levemente_Hipercorada": "Levemente Hipercorada",
+      "Congesta": "Congesta"
+    },
+    "presence_absence": {
+      "Presente": "Presente",
+      "Ausente": "Ausente"
+    },
+    "lymph_nodes": {
+      "Normal": "Normal",
+      "Aumentados": "Aumentados"
+    },
+    "conjunctivitis": {
+      "Ausente": "Ausente",
+      "Presente": "Presente",
+      "Conjuntivite_Leve": "Conjuntivite Leve",
+      "Ceratoconjuntivite_Grave": "Ceratoconjuntivite Grave"
+    },
+    "skin_lesion": {
+      "Ausente": "Ausente",
+      "Presente": "Presente",
+      "Leve_Moderada": "Leve/Moderada",
+      "Grave_Generalizada": "Grave/Generalizada"
+    },
+    "animal_sex": {
+      "M": "Macho",
+      "F": "Fêmea"
+    }
+  },
+  "diagnosis": {
+    "Positivo": "Positivo",
+    "Negativo": "Negativo"
+  },
+  "loading": {
+    "breeds": "A carregar raças..."
   }
 }

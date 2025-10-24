@@ -1,0 +1,101 @@
+/* src/styles/PredictionForm.css */
+.prediction-form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  display: grid; /* Use grid for better layout */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  gap: 15px 20px; /* Row and column gap */
+}
+
+.prediction-form .form-group {
+  margin-bottom: 0; /* Grid handles spacing */
+}
+
+.prediction-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+  font-size: 0.9em;
+}
+
+.prediction-form select,
+.prediction-form input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.prediction-form .submit-button {
+  grid-column: 1 / -1; /* Make button span all columns */
+  width: auto; /* Allow button to size naturally */
+  max-width: 200px; /* Limit button width */
+  justify-self: center; /* Center the button */
+  padding: 10px 20px;
+  margin-top: 15px;
+  background-color: #28a745; /* Green color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.prediction-form .submit-button:hover {
+  background-color: #218838;
+}
+
+.prediction-form .submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.results-display {
+  margin: 30px auto;
+  padding: 20px;
+  max-width: 600px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.results-display h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.results-display p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+
+.results-display span {
+  font-weight: bold;
+}
+
+.results-display .positive {
+  color: #dc3545; /* Red for positive */
+}
+
+.results-display .negative {
+  color: #28a745; /* Green for negative */
+}
+
+.error-message { /* Reuse from LoginForm.css or redefine here */
+  color: #dc3545; 
+  background-color: #f8d7da; 
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}
