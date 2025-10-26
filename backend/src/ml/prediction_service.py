@@ -1,7 +1,6 @@
 # src/ml/prediction_service.py
 import joblib
 import pandas as pd
-import numpy as np
 from pathlib import Path
 from src.schemas.prediction import PredictionInput
 
