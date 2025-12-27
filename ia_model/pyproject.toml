@@ -18,6 +18,8 @@ matplotlib = "^3.10.7"
 xgboost = {version = "2.1.2", source = "pypi"}
 imbalanced-learn = "^0.14.0"
 ipykernel = "^7.0.1"
+lightgbm = "^4.6.0"
+tensorflow = "^2.20.0"
 
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.14.1"
