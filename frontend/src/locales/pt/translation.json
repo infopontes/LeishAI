@@ -4,7 +4,8 @@
   "menu": {
     "home": "Início",
     "about": "Sobre",
-    "login": "Entrar"
+    "login": "Entrar",
+    "logout": "Sair"
   },
   "footer": {
     "version": "Versão",
@@ -14,11 +15,13 @@
   },
   "login": {
     "emailLabel": "Endereço de Email",
-    "passwordLabel": "Palavra-passe",
-    "loading": "A entrar...",
+    "passwordLabel": "Senha",
+    "rememberMe": "Lembre de mim",
+    "forgotPassword": "Esqueceu a senha?",
+    "loading": "Entrando...",
     "error": {
       "missingFields": "Por favor, preencha o email e a palavra-passe.",
-      "invalidCredentials": "Email ou palavra-passe incorretos."
+      "invalidCredentials": "Email ou senha incorretos."
     }
   },
   "prediction": {

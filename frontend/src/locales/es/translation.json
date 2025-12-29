@@ -4,7 +4,8 @@
   "menu": {
     "home": "Inicio",
     "about": "Acerca de",
-    "login": "Acceso"
+    "login": "Ingresar",
+    "logout": "Salir"
   },
   "footer": {
     "version": "Versión",
@@ -13,9 +14,11 @@
     "developerTitle": "Doctorando"
   },
   "login": {
-    "emailLabel": "Dirección de Correo Electrónico",
+    "emailLabel": "Correo Electrónico",
     "passwordLabel": "Contraseña",
-    "loading": "Accediendo...",
+    "rememberMe": "Recuérdame",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "loading": "Iniciando sesión...",
     "error": {
       "missingFields": "Por favor, complete el correo electrónico y la contraseña.",
       "invalidCredentials": "Correo electrónico o contraseña incorrectos."

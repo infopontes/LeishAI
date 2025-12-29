@@ -1,7 +1,12 @@
 {
   "greeting": "DSLeish (Data Science for Leishmaniasis Studies)",
   "language": "Language",
-  "menu": { "home": "Home", "about": "About", "login": "Login" },
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "login": "Login",
+    "logout": "Logout"
+  },
   "footer": {
     "version": "Version",
     "lastUpdatedLabel": "Updated on",
@@ -11,7 +16,9 @@
   "login": {
     "emailLabel": "Email Address",
     "passwordLabel": "Password",
-    "loading": "Logging in...",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot your password?",
+    "loading": "Signing in...",
     "error": {
       "missingFields": "Please fill in both email and password.",
       "invalidCredentials": "Incorrect email or password."
