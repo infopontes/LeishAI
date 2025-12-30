@@ -5,7 +5,8 @@
     "home": "Home",
     "about": "About",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "admin": "Admin"
   },
   "footer": {
     "version": "Version",

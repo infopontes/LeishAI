@@ -5,7 +5,8 @@
     "home": "Início",
     "about": "Sobre",
     "login": "Entrar",
-    "logout": "Sair"
+    "logout": "Sair",
+    "admin": "Admin"
   },
   "footer": {
     "version": "Versão",

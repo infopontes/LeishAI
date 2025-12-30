@@ -22,7 +22,14 @@ function Header() {
             </Link>
           )}
 
-          {isAuthenticated && <Logout />}
+          {isAuthenticated && (
+            <>
+              <Link to="/admin/users" className="navLink">
+                {t('menu.admin')}
+              </Link>
+              <Logout />
+            </>
+          )}
         </div>
 
         <LanguageSwitcher />
