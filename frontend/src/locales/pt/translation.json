@@ -56,12 +56,14 @@
     "description": "Preencha seus dados para solicitar acesso. Um admin ativará sua conta.",
     "fullName": "Nome completo",
     "institution": "Instituição (opcional)",
+    "reason": "Por que você precisa de acesso?",
     "submit": "Criar conta",
     "loading": "Enviando...",
     "success": "Solicitação recebida! Um admin ativará sua conta e avisará.",
     "error": {
-      "missingFields": "Preencha nome, email e senha.",
+      "missingFields": "Preencha nome, email, senha e o motivo.",
       "tooShort": "A senha deve ter pelo menos 8 caracteres.",
+      "reasonTooShort": "Descreva sua necessidade com pelo menos 30 caracteres.",
       "generic": "Não foi possível criar a conta. Tente novamente."
     }
   },

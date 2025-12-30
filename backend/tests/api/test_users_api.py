@@ -172,12 +172,17 @@ def test_create_user_sends_activation_email(
     sent = {}
 
     def fake_send_user_activation_email(
-        admin_email: str, activation_url: str, user_email: str, full_name: str
+        admin_email: str,
+        activation_url: str,
+        user_email: str,
+        full_name: str,
+        reason: str | None = None,
     ):
         sent["admin_email"] = admin_email
         sent["activation_url"] = activation_url
         sent["user_email"] = user_email
         sent["full_name"] = full_name
+        sent["reason"] = reason
         return True
 
     monkeypatch.setattr(
@@ -190,7 +195,10 @@ def test_create_user_sends_activation_email(
         "password": "password123",
         "full_name": "New User",
     }
-    response = client.post("/users/", json=payload)
+    response = client.post(
+        "/users/",
+        json={**payload, "reason": "Need access to manage cases in clinic."},
+    )
     assert response.status_code == 201
     assert sent["admin_email"] == (
         settings.ADMIN_NOTIFICATION_EMAIL or settings.DEFAULT_ADMIN_EMAIL

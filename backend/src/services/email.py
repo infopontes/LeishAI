@@ -47,7 +47,11 @@ def send_password_reset_email(to_email: str, reset_url: str) -> None:
 
 
 def send_user_activation_email(
-    admin_email: str, activation_url: str, user_email: str, full_name: str
+    admin_email: str,
+    activation_url: str,
+    user_email: str,
+    full_name: str,
+    reason: str | None = None,
 ) -> bool:
     """
     Notifies admin about a new user registration with an activation link.
@@ -59,6 +63,7 @@ def send_user_activation_email(
         html_content=(
             f"<p>A new user signed up:</p>"
             f"<p><strong>{full_name}</strong> ({user_email})</p>"
+            f"<p><strong>Reason:</strong> {reason or 'Not provided'}</p>"
             f"<p>Activate the account here: <a href=\"{activation_url}\">Activate user</a></p>"
         ),
     )

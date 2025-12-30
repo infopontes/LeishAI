@@ -56,12 +56,14 @@
     "description": "Completa tus datos para solicitar acceso. Un administrador activará tu cuenta.",
     "fullName": "Nombre completo",
     "institution": "Institución (opcional)",
+    "reason": "¿Por qué necesitas acceso?",
     "submit": "Crear cuenta",
     "loading": "Enviando...",
     "success": "Solicitud recibida. Un administrador activará tu cuenta y te notificará.",
     "error": {
-      "missingFields": "Por favor, completa nombre, correo y contraseña.",
+      "missingFields": "Por favor, completa nombre, correo, contraseña y motivo.",
       "tooShort": "La contraseña debe tener al menos 8 caracteres.",
+      "reasonTooShort": "Describe tu necesidad con al menos 30 caracteres.",
       "generic": "No pudimos crear la cuenta. Inténtalo de nuevo."
     }
   },

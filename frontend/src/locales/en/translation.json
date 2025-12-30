@@ -56,12 +56,14 @@
     "description": "Fill in your details to request access. An admin will activate your account.",
     "fullName": "Full name",
     "institution": "Institution (optional)",
+    "reason": "Why do you need access?",
     "submit": "Create account",
     "loading": "Submitting...",
     "success": "Request received! An admin will activate your account and notify you.",
     "error": {
-      "missingFields": "Please fill in name, email and password.",
+      "missingFields": "Please fill in name, email, password and reason.",
       "tooShort": "Password must be at least 8 characters.",
+      "reasonTooShort": "Please describe your need in at least 30 characters.",
       "generic": "We couldn't create the account. Try again."
     }
   },

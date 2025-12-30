@@ -61,13 +61,14 @@ export const resetPassword = async (token, newPassword) => {
   }
 };
 
-export const registerUser = async ({ fullName, email, institution, password }) => {
+export const registerUser = async ({ fullName, email, institution, password, reason }) => {
   try {
     const response = await apiClient.post('/users/', {
       full_name: fullName,
       email,
       institution,
       password,
+      reason,
     });
     return response.data;
   } catch (error) {

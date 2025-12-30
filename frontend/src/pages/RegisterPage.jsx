@@ -9,6 +9,7 @@ function RegisterPage() {
   const [email, setEmail] = useState('');
   const [institution, setInstitution] = useState('');
   const [password, setPassword] = useState('');
+  const [reason, setReason] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -18,7 +19,7 @@ function RegisterPage() {
     setError('');
     setMessage('');
 
-    if (!fullName || !email || !password) {
+    if (!fullName || !email || !password || !reason) {
       setError(t('register.error.missingFields'));
       return;
     }
@@ -26,10 +27,14 @@ function RegisterPage() {
       setError(t('register.error.tooShort'));
       return;
     }
+    if (reason.trim().length < 30) {
+      setError(t('register.error.reasonTooShort'));
+      return;
+    }
 
     try {
       setIsSubmitting(true);
-      await registerUser({ fullName, email, institution, password });
+      await registerUser({ fullName, email, institution, password, reason });
       setMessage(t('register.success'));
     } catch (err) {
       setError(err.message || t('register.error.generic'));
@@ -82,6 +87,15 @@ function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isSubmitting}
+            />
+
+            <label htmlFor="reason">{t('register.reason')}</label>
+            <textarea
+              id="reason"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              disabled={isSubmitting}
+              rows={3}
             />
 
             {error && <p className="error-message">{error}</p>}

@@ -56,6 +56,7 @@ def create_new_user(
         activation_url=activation_url,
         user_email=created_user.email,
         full_name=created_user.full_name,
+        reason=user.reason,
     )
 
     return created_user
