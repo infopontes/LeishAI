@@ -77,6 +77,9 @@ function AdminUsersPage() {
     }
   };
 
+  const translateRoleName = (roleName) =>
+    t(`adminUsers.roleLabels.${roleName}`, { defaultValue: roleName });
+
   return (
     <div className="admin-users">
       <div className="admin-header">
@@ -133,7 +136,7 @@ function AdminUsersPage() {
                   <option value="">{t('adminUsers.noRole')}</option>
                   {roles.map((role) => (
                     <option key={role.id} value={role.id}>
-                      {role.name}
+                      {translateRoleName(role.name)}
                     </option>
                   ))}
                 </select>

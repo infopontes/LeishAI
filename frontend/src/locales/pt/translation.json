@@ -81,7 +81,12 @@
     "noRole": "Sem perfil",
     "activeYes": "Ativo",
     "activeNo": "Inativo",
-    "error": "Não foi possível carregar ou atualizar usuários."
+    "error": "Não foi possível carregar ou atualizar usuários.",
+    "roleLabels": {
+      "admin": "Administrador",
+      "veterinario": "Veterinário",
+      "coordenador": "Coordenador"
+    }
   },
   "prediction": {
     "title": "Fazer uma Previsão",

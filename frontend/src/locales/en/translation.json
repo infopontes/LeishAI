@@ -81,7 +81,12 @@
     "noRole": "No role",
     "activeYes": "Active",
     "activeNo": "Inactive",
-    "error": "Unable to load or update users."
+    "error": "Unable to load or update users.",
+    "roleLabels": {
+      "admin": "Admin",
+      "veterinario": "Veterinarian",
+      "coordenador": "Coordinator"
+    }
   },
   "prediction": {
     "title": "Make a Prediction",

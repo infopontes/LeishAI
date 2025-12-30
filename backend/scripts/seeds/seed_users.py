@@ -2,6 +2,7 @@ import logging
 from sqlalchemy.orm import Session
 import src.db.crud.crud_role as crud_role
 import src.db.crud.crud_user as crud_user
+from src.db import models
 from src.schemas.role import RoleCreate
 from src.schemas.user import UserCreate
 from src.core.config import settings
@@ -32,6 +33,17 @@ def seed_roles_and_users(db: Session) -> None:
             )
 
     admin_role = crud_role.get_role_by_name(db, name="admin")
+
+    # Remove non-default users to keep only the seeded accounts
+    allowed_emails = {settings.DEFAULT_ADMIN_EMAIL, settings.DEFAULT_VET_EMAIL}
+    deleted = (
+        db.query(models.User)
+        .filter(models.User.email.notin_(allowed_emails))
+        .delete(synchronize_session=False)
+    )
+    if deleted:
+        logger.info(f"Removed {deleted} non-default user(s) before seeding.")
+        db.commit()
 
     # Create Administrator User
     admin_email = settings.DEFAULT_ADMIN_EMAIL
