@@ -46,6 +46,7 @@
     "error": {
       "invalidToken": "Invalid or missing reset link.",
       "missingPassword": "Please enter a new password.",
+      "tooShort": "Password must be at least 8 characters.",
       "generic": "We couldn't reset the password. Try again."
     }
   },

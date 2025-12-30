@@ -116,3 +116,25 @@ def test_reset_password_invalid_token(client: TestClient, token):
     )
     assert response.status_code == 400
     assert response.json()["detail"] == "Invalid or expired token"
+
+
+def test_reset_password_rejects_short_password(
+    client: TestClient, db_session: Session
+):
+    user_in = UserCreate(
+        email="shortpass@example.com",
+        password="oldpass",
+        full_name="Short Pass",
+    )
+    user = crud_user.create_user(db_session, user=user_in)
+    user.is_active = True
+    db_session.commit()
+
+    token = security.create_password_reset_token(user.email)
+    response = client.post(
+        "/auth/reset-password",
+        json={"token": token, "new_password": "123"},
+    )
+
+    assert response.status_code == 422
+    assert response.json()["detail"][0]["type"] == "string_too_short"

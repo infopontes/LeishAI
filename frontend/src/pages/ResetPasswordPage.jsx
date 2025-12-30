@@ -34,6 +34,10 @@ function ResetPasswordPage() {
       setError(t('resetPassword.error.missingPassword'));
       return;
     }
+    if (password.length < 8) {
+      setError(t('resetPassword.error.tooShort'));
+      return;
+    }
     if (!token) {
       setError(t('resetPassword.error.invalidToken'));
       return;

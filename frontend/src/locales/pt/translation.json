@@ -46,6 +46,7 @@
     "error": {
       "invalidToken": "Link de redefinição inválido ou ausente.",
       "missingPassword": "Informe a nova senha.",
+      "tooShort": "A senha deve ter pelo menos 8 caracteres.",
       "generic": "Não foi possível redefinir a senha. Tente novamente."
     }
   },

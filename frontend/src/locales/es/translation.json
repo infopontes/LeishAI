@@ -46,6 +46,7 @@
     "error": {
       "invalidToken": "Enlace de restablecimiento inválido o ausente.",
       "missingPassword": "Por favor, ingresa una nueva contraseña.",
+      "tooShort": "La contraseña debe tener al menos 8 caracteres.",
       "generic": "No pudimos restablecer la contraseña. Inténtalo de nuevo."
     }
   },
