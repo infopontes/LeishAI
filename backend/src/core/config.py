@@ -21,6 +21,13 @@ class Settings(BaseSettings):
     DEFAULT_VET_EMAIL: str
     DEFAULT_VET_PASSWORD: str
 
+    # Email / SendGrid
+    SENDGRID_API_KEY: str
+    EMAIL_FROM: str
+    EMAIL_FROM_NAME: str = "LeishAI"
+    FRONTEND_BASE_URL: str = "http://localhost:5173"
+    PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = 60
+
     TESTING: bool = False
 
     model_config = SettingsConfigDict(

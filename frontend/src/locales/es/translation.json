@@ -36,6 +36,19 @@
       "generic": "No pudimos iniciar el proceso de restablecimiento. Inténtalo de nuevo."
     }
   },
+  "resetPassword": {
+    "title": "Elige una nueva contraseña",
+    "description": "Ingresa tu nueva contraseña para completar el restablecimiento.",
+    "passwordLabel": "Nueva contraseña",
+    "submit": "Actualizar contraseña",
+    "loading": "Actualizando...",
+    "success": "Contraseña actualizada con éxito. Redirigiendo al inicio de sesión...",
+    "error": {
+      "invalidToken": "Enlace de restablecimiento inválido o ausente.",
+      "missingPassword": "Por favor, ingresa una nueva contraseña.",
+      "generic": "No pudimos restablecer la contraseña. Inténtalo de nuevo."
+    }
+  },
   "prediction": {
     "title": "Hacer una Predicción",
     "description": "Ingrese los datos clínicos a continuación para obtener una predicción de diagnóstico.",

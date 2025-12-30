@@ -7,7 +7,8 @@ from src.core.limiter import limiter
 from src.core import security
 from src.core.config import settings
 from src.db.crud import crud_user
-from src.schemas.auth import ForgotPasswordRequest
+from src.schemas.auth import ForgotPasswordRequest, ResetPasswordRequest
+from src.services.email import send_password_reset_email
 from .dependencies import get_db
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -57,8 +58,44 @@ def forgot_password(
     Starts the password reset flow without revealing if the email exists.
     """
     user = crud_user.get_user_by_email(db, email=payload.email)
-    # In the future, trigger email delivery if user exists and is active.
-    if user:
-        _ = user  # placeholder to avoid lint errors; side effects may be added later.
+    detail = PASSWORD_RESET_DETAIL
+    if user and user.is_active:
+        token = security.create_password_reset_token(user.email)
+        reset_url = (
+            f"{settings.FRONTEND_BASE_URL}/reset-password?token={token}"
+        )
+        email_sent = send_password_reset_email(
+            to_email=user.email, reset_url=reset_url
+        )
+        if not email_sent:
+            detail = "We couldn't send the reset email. Please try again later."
 
-    return {"detail": PASSWORD_RESET_DETAIL}
+    return {"detail": detail}
+
+
+@router.post("/reset-password")
+@limiter.limit("20/minute")
+def reset_password(
+    request: Request,
+    payload: ResetPasswordRequest,
+    db: Session = Depends(get_db),
+):
+    """
+    Resets the user's password using a valid reset token.
+    """
+    email = security.verify_password_reset_token(payload.token)
+    if not email:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired token"
+        )
+
+    user = crud_user.get_user_by_email(db, email=email)
+    if not user or not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid user"
+        )
+
+    user.hashed_password = security.get_password_hash(payload.new_password)
+    db.add(user)
+    db.commit()
+    return {"detail": "Password updated successfully"}

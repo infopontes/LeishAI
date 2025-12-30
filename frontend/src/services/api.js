@@ -46,6 +46,21 @@ export const requestPasswordReset = async (email) => {
   }
 };
 
+export const resetPassword = async (token, newPassword) => {
+  try {
+    const response = await apiClient.post('/auth/reset-password', {
+      token,
+      new_password: newPassword,
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.detail || 'Password reset failed');
+    }
+    throw new Error('Network error or server unavailable');
+  }
+};
+
 // Function to handle the prediction API call
 export const makePrediction = async (predictionData) => {
   try {

@@ -36,6 +36,19 @@
       "generic": "Não foi possível iniciar a recuperação. Tente novamente."
     }
   },
+  "resetPassword": {
+    "title": "Definir nova senha",
+    "description": "Digite sua nova senha para concluir a redefinição.",
+    "passwordLabel": "Nova senha",
+    "submit": "Atualizar senha",
+    "loading": "Atualizando...",
+    "success": "Senha atualizada com sucesso. Redirecionando para o login...",
+    "error": {
+      "invalidToken": "Link de redefinição inválido ou ausente.",
+      "missingPassword": "Informe a nova senha.",
+      "generic": "Não foi possível redefinir a senha. Tente novamente."
+    }
+  },
   "prediction": {
     "title": "Fazer uma Previsão",
     "description": "Insira os dados clínicos abaixo para obter uma previsão de diagnóstico.",
