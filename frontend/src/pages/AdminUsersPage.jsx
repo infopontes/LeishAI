@@ -9,6 +9,7 @@ function AdminUsersPage() {
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: 'full_name', dir: 'asc' });
 
   const loadData = async () => {
     try {
@@ -27,6 +28,30 @@ function AdminUsersPage() {
   useEffect(() => {
     loadData();
   }, []);
+
+  const sortUsers = (key) => {
+    setSortConfig((prev) => {
+      const dir = prev.key === key && prev.dir === 'asc' ? 'desc' : 'asc';
+      const sorted = [...users].sort((a, b) => {
+        const aVal = (a[key] || '').toString().toLowerCase();
+        const bVal = (b[key] || '').toString().toLowerCase();
+        if (aVal < bVal) return dir === 'asc' ? -1 : 1;
+        if (aVal > bVal) return dir === 'asc' ? 1 : -1;
+        return 0;
+      });
+      setUsers(sorted);
+      return { key, dir };
+    });
+  };
+
+  const SortIcon = ({ column }) => {
+    if (sortConfig.key !== column) return <span className="sort-icon">↕</span>;
+    return sortConfig.dir === 'asc' ? (
+      <span className="sort-icon">↑</span>
+    ) : (
+      <span className="sort-icon">↓</span>
+    );
+  };
 
   const handleRoleChange = async (userId, roleId) => {
     try {
@@ -71,9 +96,27 @@ function AdminUsersPage() {
       ) : (
         <div className="users-table">
           <div className="users-table__row users-table__header">
-            <span>{t('adminUsers.name')}</span>
-            <span>{t('adminUsers.email')}</span>
-            <span>{t('adminUsers.institution')}</span>
+            <button
+              type="button"
+              className="header-sort"
+              onClick={() => sortUsers('full_name')}
+            >
+              {t('adminUsers.name')} <SortIcon column="full_name" />
+            </button>
+            <button
+              type="button"
+              className="header-sort"
+              onClick={() => sortUsers('email')}
+            >
+              {t('adminUsers.email')} <SortIcon column="email" />
+            </button>
+            <button
+              type="button"
+              className="header-sort"
+              onClick={() => sortUsers('institution')}
+            >
+              {t('adminUsers.institution')} <SortIcon column="institution" />
+            </button>
             <span>{t('adminUsers.role')}</span>
             <span>{t('adminUsers.active')}</span>
           </div>
