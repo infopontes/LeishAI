@@ -67,6 +67,21 @@
       "generic": "Não foi possível criar a conta. Tente novamente."
     }
   },
+  "adminUsers": {
+    "title": "Administração de usuários",
+    "description": "Ative usuários e atribua perfis.",
+    "refresh": "Atualizar",
+    "loading": "Carregando...",
+    "name": "Nome",
+    "email": "Email",
+    "institution": "Instituição",
+    "role": "Perfil",
+    "active": "Ativo",
+    "noRole": "Sem perfil",
+    "activeYes": "Ativo",
+    "activeNo": "Inativo",
+    "error": "Não foi possível carregar ou atualizar usuários."
+  },
   "prediction": {
     "title": "Fazer uma Previsão",
     "description": "Insira os dados clínicos abaixo para obter uma previsão de diagnóstico.",

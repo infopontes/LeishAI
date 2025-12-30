@@ -67,6 +67,21 @@
       "generic": "We couldn't create the account. Try again."
     }
   },
+  "adminUsers": {
+    "title": "User administration",
+    "description": "Activate users and assign roles.",
+    "refresh": "Refresh",
+    "loading": "Loading...",
+    "name": "Name",
+    "email": "Email",
+    "institution": "Institution",
+    "role": "Role",
+    "active": "Active",
+    "noRole": "No role",
+    "activeYes": "Active",
+    "activeNo": "Inactive",
+    "error": "Unable to load or update users."
+  },
   "prediction": {
     "title": "Make a Prediction",
     "description": "Enter the clinical data below to get a diagnosis prediction.",

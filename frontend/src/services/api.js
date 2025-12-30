@@ -79,6 +79,41 @@ export const registerUser = async ({ fullName, email, institution, password, rea
   }
 };
 
+const getStoredToken = () =>
+  localStorage.getItem('auth_token') ||
+  sessionStorage.getItem('auth_token') ||
+  localStorage.getItem('authToken');
+
+export const fetchUsers = async () => {
+  const token = getStoredToken();
+  if (!token) throw new Error('User not authenticated');
+
+  const response = await apiClient.get('/users/', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
+
+export const fetchRoles = async () => {
+  const token = getStoredToken();
+  if (!token) throw new Error('User not authenticated');
+
+  const response = await apiClient.get('/roles/', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
+
+export const updateUserAdmin = async (userId, updateData) => {
+  const token = getStoredToken();
+  if (!token) throw new Error('User not authenticated');
+
+  const response = await apiClient.put(`/users/${userId}`, updateData, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
+
 // Function to handle the prediction API call
 export const makePrediction = async (predictionData) => {
   try {

@@ -67,6 +67,21 @@
       "generic": "No pudimos crear la cuenta. Inténtalo de nuevo."
     }
   },
+  "adminUsers": {
+    "title": "Administración de usuarios",
+    "description": "Activa usuarios y asigna perfiles.",
+    "refresh": "Actualizar",
+    "loading": "Cargando...",
+    "name": "Nombre",
+    "email": "Correo",
+    "institution": "Institución",
+    "role": "Perfil",
+    "active": "Activo",
+    "noRole": "Sin perfil",
+    "activeYes": "Activo",
+    "activeNo": "Inactivo",
+    "error": "No se pudieron cargar o actualizar los usuarios."
+  },
   "prediction": {
     "title": "Hacer una Predicción",
     "description": "Ingrese los datos clínicos a continuación para obtener una predicción de diagnóstico.",
