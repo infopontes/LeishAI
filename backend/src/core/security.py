@@ -59,3 +59,23 @@ def verify_password_reset_token(token: str) -> Optional[str]:
         return payload.get("sub")
     except Exception:
         return None
+
+
+def create_activation_token(user_id: str) -> str:
+    expires = timedelta(minutes=60 * 24)  # 24 hours
+    return create_access_token(
+        data={"sub": user_id, "scope": "activate_user"},
+        expires_delta=expires,
+    )
+
+
+def verify_activation_token(token: str) -> Optional[str]:
+    try:
+        payload = jwt.decode(
+            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
+        if payload.get("scope") != "activate_user":
+            return None
+        return payload.get("sub")
+    except Exception:
+        return None

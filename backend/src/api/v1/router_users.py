@@ -15,6 +15,9 @@ from src.db.crud import crud_user
 from src.schemas import user as user_schema
 from src.db import models
 from .dependencies import get_current_user, get_db, get_current_admin_user
+from src.core.config import settings
+from src.core import security
+from src.services.email import send_user_activation_email
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -37,7 +40,25 @@ def create_new_user(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email already registered",
         )
-    return crud_user.create_user(db=db, user=user)
+    created_user = crud_user.create_user(db=db, user=user)
+
+    admin_email = (
+        settings.ADMIN_NOTIFICATION_EMAIL
+        or settings.DEFAULT_ADMIN_EMAIL
+        or settings.EMAIL_FROM
+    )
+    token = security.create_activation_token(str(created_user.id))
+    activation_url = (
+        f"{settings.BACKEND_BASE_URL}/users/activate?token={token}"
+    )
+    send_user_activation_email(
+        admin_email=admin_email,
+        activation_url=activation_url,
+        user_email=created_user.email,
+        full_name=created_user.full_name,
+    )
+
+    return created_user
 
 
 @router.get("/me", response_model=user_schema.UserPublic)
@@ -91,3 +112,31 @@ def deactivate_existing_user(user_id: UUID, db: Session = Depends(get_db)):
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.get("/activate")
+@limiter.limit("20/minute")
+def activate_user(
+    request: Request, token: str, db: Session = Depends(get_db)
+):
+    """
+    Activates a user using a signed activation token.
+    """
+    user_id = security.verify_activation_token(token)
+    if not user_id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid or expired activation token",
+        )
+
+    db_user = crud_user.get_user_by_id(db, user_id=user_id)
+    if not db_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+
+    db_user.is_active = True
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return {"detail": "User activated successfully"}

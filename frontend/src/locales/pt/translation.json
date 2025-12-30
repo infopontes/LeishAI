@@ -18,6 +18,7 @@
     "passwordLabel": "Senha",
     "rememberMe": "Lembre de mim",
     "forgotPassword": "Esqueceu a senha?",
+    "createAccount": "Criar conta",
     "loading": "Entrando...",
     "error": {
       "missingFields": "Por favor, preencha o email e a palavra-passe.",
@@ -48,6 +49,20 @@
       "missingPassword": "Informe a nova senha.",
       "tooShort": "A senha deve ter pelo menos 8 caracteres.",
       "generic": "Não foi possível redefinir a senha. Tente novamente."
+    }
+  },
+  "register": {
+    "title": "Criar conta",
+    "description": "Preencha seus dados para solicitar acesso. Um admin ativará sua conta.",
+    "fullName": "Nome completo",
+    "institution": "Instituição (opcional)",
+    "submit": "Criar conta",
+    "loading": "Enviando...",
+    "success": "Solicitação recebida! Um admin ativará sua conta e avisará.",
+    "error": {
+      "missingFields": "Preencha nome, email e senha.",
+      "tooShort": "A senha deve ter pelo menos 8 caracteres.",
+      "generic": "Não foi possível criar a conta. Tente novamente."
     }
   },
   "prediction": {

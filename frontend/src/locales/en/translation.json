@@ -18,6 +18,7 @@
     "passwordLabel": "Password",
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot your password?",
+    "createAccount": "Create account",
     "loading": "Signing in...",
     "error": {
       "missingFields": "Please fill in both email and password.",
@@ -48,6 +49,20 @@
       "missingPassword": "Please enter a new password.",
       "tooShort": "Password must be at least 8 characters.",
       "generic": "We couldn't reset the password. Try again."
+    }
+  },
+  "register": {
+    "title": "Create your account",
+    "description": "Fill in your details to request access. An admin will activate your account.",
+    "fullName": "Full name",
+    "institution": "Institution (optional)",
+    "submit": "Create account",
+    "loading": "Submitting...",
+    "success": "Request received! An admin will activate your account and notify you.",
+    "error": {
+      "missingFields": "Please fill in name, email and password.",
+      "tooShort": "Password must be at least 8 characters.",
+      "generic": "We couldn't create the account. Try again."
     }
   },
   "prediction": {

@@ -61,6 +61,23 @@ export const resetPassword = async (token, newPassword) => {
   }
 };
 
+export const registerUser = async ({ fullName, email, institution, password }) => {
+  try {
+    const response = await apiClient.post('/users/', {
+      full_name: fullName,
+      email,
+      institution,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.detail || 'Registration failed');
+    }
+    throw new Error('Network error or server unavailable');
+  }
+};
+
 // Function to handle the prediction API call
 export const makePrediction = async (predictionData) => {
   try {

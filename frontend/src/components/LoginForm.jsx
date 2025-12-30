@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaLock } from 'react-icons/fa';
+import { FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import { loginUser } from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -18,6 +18,7 @@ function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // 🔹 Load remembered email
   useEffect(() => {
@@ -79,13 +80,22 @@ function LoginForm() {
         <label htmlFor="password">{t('login.passwordLabel')}</label>
         <div className="input-wrapper">
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isLoading}
           />
           <FaLock className="icon" />
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            disabled={isLoading}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
         </div>
       </div>
 
@@ -103,6 +113,9 @@ function LoginForm() {
 
         <Link to="/forgot-password" className="forgot-password">
           {t('login.forgotPassword')}
+        </Link>
+        <Link to="/register" className="create-account">
+          {t('login.createAccount')}
         </Link>
       </div>
 

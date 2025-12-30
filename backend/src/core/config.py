@@ -26,7 +26,9 @@ class Settings(BaseSettings):
     EMAIL_FROM: str
     EMAIL_FROM_NAME: str = "LeishAI"
     FRONTEND_BASE_URL: str = "http://localhost:5173"
+    BACKEND_BASE_URL: str = "http://127.0.0.1:8000"
     PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = 60
+    ADMIN_NOTIFICATION_EMAIL: str | None = None
 
     TESTING: bool = False
 
