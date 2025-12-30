@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock } from 'react-icons/fa';
 
 import { loginUser } from '../services/api';
@@ -101,9 +101,9 @@ function LoginForm() {
           {t('login.rememberMe')}
         </label>
 
-        <a href="/forgot-password" className="forgot-password">
+        <Link to="/forgot-password" className="forgot-password">
           {t('login.forgotPassword')}
-        </a>
+        </Link>
       </div>
 
       {/* Submit */}

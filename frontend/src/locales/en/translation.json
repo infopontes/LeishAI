@@ -24,6 +24,18 @@
       "invalidCredentials": "Incorrect email or password."
     }
   },
+  "forgotPassword": {
+    "title": "Reset your password",
+    "description": "Enter your email and we'll send a reset link if the account exists.",
+    "submit": "Send reset link",
+    "loading": "Sending...",
+    "success": "If that email is registered, we've sent password reset instructions.",
+    "backToLogin": "Back to login",
+    "error": {
+      "missingEmail": "Please enter your email address.",
+      "generic": "We couldn't start the reset process. Try again."
+    }
+  },
   "prediction": {
     "title": "Make a Prediction",
     "description": "Enter the clinical data below to get a diagnosis prediction.",

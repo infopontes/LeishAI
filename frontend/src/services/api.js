@@ -33,6 +33,19 @@ export const loginUser = async (email, password) => {
   }
 };
 
+// Request password reset email
+export const requestPasswordReset = async (email) => {
+  try {
+    const response = await apiClient.post('/auth/forgot-password', { email });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.detail || 'Password reset failed');
+    }
+    throw new Error('Network error or server unavailable');
+  }
+};
+
 // Function to handle the prediction API call
 export const makePrediction = async (predictionData) => {
   try {

@@ -24,6 +24,18 @@
       "invalidCredentials": "Email ou senha incorretos."
     }
   },
+  "forgotPassword": {
+    "title": "Recuperar senha",
+    "description": "Informe seu email e enviaremos um link de redefinição se a conta existir.",
+    "submit": "Enviar link de redefinição",
+    "loading": "Enviando...",
+    "success": "Se esse email estiver registrado, enviamos as instruções para redefinir a senha.",
+    "backToLogin": "Voltar para login",
+    "error": {
+      "missingEmail": "Por favor, informe o email.",
+      "generic": "Não foi possível iniciar a recuperação. Tente novamente."
+    }
+  },
   "prediction": {
     "title": "Fazer uma Previsão",
     "description": "Insira os dados clínicos abaixo para obter uma previsão de diagnóstico.",

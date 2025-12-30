@@ -24,6 +24,18 @@
       "invalidCredentials": "Correo electrónico o contraseña incorrectos."
     }
   },
+  "forgotPassword": {
+    "title": "Restablecer tu contraseña",
+    "description": "Ingresa tu correo y te enviaremos un enlace de restablecimiento si la cuenta existe.",
+    "submit": "Enviar enlace de restablecimiento",
+    "loading": "Enviando...",
+    "success": "Si ese correo está registrado, hemos enviado instrucciones para restablecer la contraseña.",
+    "backToLogin": "Volver a iniciar sesión",
+    "error": {
+      "missingEmail": "Por favor, ingresa tu correo electrónico.",
+      "generic": "No pudimos iniciar el proceso de restablecimiento. Inténtalo de nuevo."
+    }
+  },
   "prediction": {
     "title": "Hacer una Predicción",
     "description": "Ingrese los datos clínicos a continuación para obtener una predicción de diagnóstico.",

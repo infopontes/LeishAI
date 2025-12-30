@@ -7,9 +7,13 @@ from src.core.limiter import limiter
 from src.core import security
 from src.core.config import settings
 from src.db.crud import crud_user
+from src.schemas.auth import ForgotPasswordRequest
 from .dependencies import get_db
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
+PASSWORD_RESET_DETAIL = (
+    "If the account exists, we've sent password reset instructions."
+)
 
 
 @router.post("/token")
@@ -40,3 +44,21 @@ def login_for_access_token(
     )
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.post("/forgot-password")
+@limiter.limit("20/minute")
+def forgot_password(
+    request: Request,
+    payload: ForgotPasswordRequest,
+    db: Session = Depends(get_db),
+):
+    """
+    Starts the password reset flow without revealing if the email exists.
+    """
+    user = crud_user.get_user_by_email(db, email=payload.email)
+    # In the future, trigger email delivery if user exists and is active.
+    if user:
+        _ = user  # placeholder to avoid lint errors; side effects may be added later.
+
+    return {"detail": PASSWORD_RESET_DETAIL}
