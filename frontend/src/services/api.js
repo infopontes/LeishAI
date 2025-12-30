@@ -114,6 +114,16 @@ export const updateUserAdmin = async (userId, updateData) => {
   return response.data;
 };
 
+export const fetchCurrentUser = async (token) => {
+  const authToken = token || getStoredToken();
+  if (!authToken) throw new Error('User not authenticated');
+
+  const response = await apiClient.get('/users/me', {
+    headers: { Authorization: `Bearer ${authToken}` },
+  });
+  return response.data;
+};
+
 // Function to handle the prediction API call
 export const makePrediction = async (predictionData) => {
   try {

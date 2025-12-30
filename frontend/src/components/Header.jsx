@@ -7,7 +7,7 @@ import '../styles/Header.css';
 
 function Header() {
   const { t } = useTranslation();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isAdmin } = useAuth();
 
   return (
     <header className="header">
@@ -24,9 +24,11 @@ function Header() {
 
           {isAuthenticated && (
             <>
-              <Link to="/admin/users" className="navLink">
-                {t('menu.admin')}
-              </Link>
+              {isAdmin && (
+                <Link to="/admin/users" className="navLink">
+                  {t('menu.admin')}
+                </Link>
+              )}
               <Logout />
             </>
           )}
