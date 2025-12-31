@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
-import Logout from './Logout';
 import LanguageSwitcher from './LanguageSwitcher';
 import '../styles/Header.css';
 import { useState } from 'react';
 
 function Header() {
   const { t } = useTranslation();
-  const { isAuthenticated, isAdmin, user } = useAuth();
+  const navigate = useNavigate();
+  const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const roleLabel = user?.role?.name
@@ -27,9 +27,12 @@ function Header() {
               {t('menu.login')}
             </Link>
           )}
+        </div>
 
+        <div className="navRight">
+          <LanguageSwitcher />
           {isAuthenticated && (
-            <div className="navLinks">
+            <>
               {isAdmin && (
                 <Link to="/admin/users" className="navLink">
                   {t('menu.admin')}
@@ -40,19 +43,26 @@ function Header() {
                   className="userMenu__button"
                   onClick={() => setMenuOpen((prev) => !prev)}
                 >
-                  <span className="userMenu__name">{user?.full_name || t('menu.profile')}</span>
+                  <span className="userMenu__name">
+                    {user?.full_name || t('menu.profile')}
+                  </span>
                   <span className="userMenu__role">{roleLabel}</span>
                 </button>
                 {menuOpen && (
                   <div className="userMenu__dropdown">
-                    <Link to="/profile" className="dropdown-link" onClick={() => setMenuOpen(false)}>
+                    <Link
+                      to="/profile"
+                      className="dropdown-link"
+                      onClick={() => setMenuOpen(false)}
+                    >
                       {t('menu.profile')}
                     </Link>
                     <button
                       className="dropdown-link"
                       onClick={() => {
                         setMenuOpen(false);
-                        document.querySelector('.logoutBtn')?.click();
+                        logout();
+                        navigate('/login');
                       }}
                     >
                       {t('menu.logout')}
@@ -60,12 +70,9 @@ function Header() {
                   </div>
                 )}
               </div>
-              <Logout />
-            </div>
+            </>
           )}
         </div>
-
-        <LanguageSwitcher />
       </nav>
     </header>
   );
