@@ -60,7 +60,8 @@
   margin: 0;
   cursor: pointer;
   font-size: inherit;
-  color: inherit;
+  color: #007bff;
+  font-weight: bold;
 }
 
 .logoutBtn:hover {
