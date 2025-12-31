@@ -1,0 +1,11 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-page h2 {
+  margin: 12px 0 4px;
+  text-align: center;
+}
