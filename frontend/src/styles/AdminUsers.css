@@ -58,34 +58,32 @@
   gap: 12px;
 }
 
-.create-grid {
+.create-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
-  grid-template-areas:
-    "name email empty"
-    "institution password role";
   gap: 12px;
 }
 
-.create-grid label {
+.create-row.two-cols {
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+}
+
+.create-row.three-cols {
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+}
+
+.create-row label {
   display: flex;
   flex-direction: column;
   gap: 6px;
   font-weight: 600;
 }
 
-.create-grid input,
-.create-grid select {
+.create-row input,
+.create-row select {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #cbd5e1;
 }
-
-.create-grid .field-name { grid-area: name; }
-.create-grid .field-email { grid-area: email; }
-.create-grid .field-institution { grid-area: institution; }
-.create-grid .field-password { grid-area: password; }
-.create-grid .field-role { grid-area: role; }
 
 .users-table {
   border: 1px solid #e2e8f0;
