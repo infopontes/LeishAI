@@ -14,6 +14,8 @@
 .navLinks {
   display: flex;
   gap: 20px; /* Space between links */
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .navLink {
@@ -29,7 +31,8 @@
 .navRight {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 /* Styles for LanguageSwitcher can also go here or in its own file */
@@ -54,7 +57,7 @@
 }
 
 .flagImage {
-  width: 24px;
+  width: 22px;
   height: auto;
   display: block;
 }
