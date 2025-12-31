@@ -103,8 +103,8 @@
     "loading": "Loading profile..."
   },
   "aboutPage": {
-    "title": "AI-assisted diagnosis for canine leishmaniasis",
-    "subtitle": "Backend API + ML pipeline to support veterinarians with predictions and confidence scores.",
+    "title": "DSLeish (Data Science for Leishmaniasis Studies)",
+    "subtitle": "Frontend DSLeish + backend LeishAI (API, database access, and AI model powering the UI).",
     "repoLink": "Project on GitHub",
     "overviewTitle": "What is LeishAI",
     "overview1": "AI tool to support vets in diagnosing canine leishmaniasis.",
