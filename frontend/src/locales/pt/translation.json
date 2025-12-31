@@ -86,6 +86,10 @@
     "hideCreate": "Ocultar formulário",
     "createTitle": "Criar usuário diretamente (sem notificação por email)",
     "createButton": "Criar usuário",
+    "updateButton": "Salvar alterações",
+    "edit": "Editar",
+    "actions": "Ações",
+    "passwordEditPlaceholder": "Senha não será alterada",
     "roleLabels": {
       "admin": "Administrador",
       "veterinario": "Veterinário",

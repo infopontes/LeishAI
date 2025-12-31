@@ -16,6 +16,7 @@ function AdminUsersPage() {
   const [error, setError] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: 'full_name', dir: 'asc' });
   const [showCreate, setShowCreate] = useState(false);
+  const [editUserId, setEditUserId] = useState(null);
   const [createData, setCreateData] = useState({
     fullName: '',
     email: '',
@@ -136,6 +137,7 @@ function AdminUsersPage() {
                 onChange={(e) =>
                   setCreateData((prev) => ({ ...prev, email: e.target.value }))
                 }
+                disabled={!!editUserId}
               />
             </label>
           </div>
@@ -161,6 +163,8 @@ function AdminUsersPage() {
                 onChange={(e) =>
                   setCreateData((prev) => ({ ...prev, password: e.target.value }))
                 }
+                disabled={!!editUserId}
+                placeholder={editUserId ? t('adminUsers.passwordEditPlaceholder') : ''}
               />
             </label>
             <label>
@@ -184,33 +188,45 @@ function AdminUsersPage() {
             className="refresh-btn"
             onClick={async () => {
               setError('');
-              if (!createData.fullName || !createData.email || !createData.password) {
+              if (!createData.fullName || !createData.email) {
                 setError(t('register.error.missingFields'));
                 return;
               }
-              if (createData.password.length < 8) {
+              if (!editUserId && !createData.password) {
+                setError(t('register.error.missingFields'));
+                return;
+              }
+              if (!editUserId && createData.password.length < 8) {
                 setError(t('register.error.tooShort'));
                 return;
               }
               try {
-                const newUser = await registerUser({
-                  fullName: createData.fullName,
-                  email: createData.email,
-                  institution: createData.institution,
-                  password: createData.password,
-                  reason: 'Created by admin panel',
-                });
-                if (createData.roleId) {
-                  const updated = await updateUserAdmin(newUser.id, {
-                    role_id: createData.roleId,
-                    is_active: true,
+                if (editUserId) {
+                  const updated = await updateUserAdmin(editUserId, {
+                    full_name: createData.fullName,
+                    institution: createData.institution,
+                    role_id: createData.roleId || null,
                   });
-                  setUsers((prev) => [...prev, updated]);
+                  setUsers((prev) =>
+                    prev.map((u) => (u.id === editUserId ? updated : u))
+                  );
                 } else {
-                  setUsers((prev) => [
-                    ...prev,
-                    { ...newUser, is_active: true, role: null },
-                  ]);
+                  const newUser = await registerUser({
+                    fullName: createData.fullName,
+                    email: createData.email,
+                    institution: createData.institution,
+                    password: createData.password,
+                    reason: 'Created by admin panel',
+                  });
+                  let newEntry = { ...newUser, is_active: true, role: null };
+                  if (createData.roleId) {
+                    const updated = await updateUserAdmin(newUser.id, {
+                      role_id: createData.roleId,
+                      is_active: true,
+                    });
+                    newEntry = updated;
+                  }
+                  setUsers((prev) => [...prev, newEntry]);
                 }
                 setCreateData({
                   fullName: '',
@@ -219,13 +235,14 @@ function AdminUsersPage() {
                   password: '',
                   roleId: '',
                 });
+                setEditUserId(null);
                 setShowCreate(false);
               } catch (err) {
                 setError(err.message || t('adminUsers.error'));
               }
             }}
           >
-            {t('adminUsers.createButton')}
+            {editUserId ? t('adminUsers.updateButton') : t('adminUsers.createButton')}
           </button>
         </div>
       )}
@@ -258,6 +275,7 @@ function AdminUsersPage() {
             </button>
             <span>{t('adminUsers.role')}</span>
             <span>{t('adminUsers.active')}</span>
+            <span>{t('adminUsers.actions')}</span>
           </div>
           {users.map((user) => (
             <div className="users-table__row" key={user.id}>
@@ -288,6 +306,25 @@ function AdminUsersPage() {
                   />
                   <span>{user.is_active ? t('adminUsers.activeYes') : t('adminUsers.activeNo')}</span>
                 </label>
+              </span>
+              <span>
+                <button
+                  type="button"
+                  className="small-btn"
+                  onClick={() => {
+                    setShowCreate(true);
+                    setEditUserId(user.id);
+                    setCreateData({
+                      fullName: user.full_name || '',
+                      email: user.email || '',
+                      institution: user.institution || '',
+                      password: '',
+                      roleId: user.role?.id || '',
+                    });
+                  }}
+                >
+                  {t('adminUsers.edit')}
+                </button>
               </span>
             </div>
           ))}
