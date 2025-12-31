@@ -103,8 +103,9 @@
     "loading": "Loading profile..."
   },
   "aboutPage": {
+    "brand": "DSLeish",
     "title": "DSLeish (Data Science for Leishmaniasis Studies)",
-    "subtitle": "Frontend DSLeish + backend LeishAI (API, database access, and AI model powering the UI).",
+    "subtitle": "AI project to assist control of visceral leishmaniasis (PPGTAIR/UFPI). Frontend DSLeish + backend API with database access and AI model.",
     "repoLink": "Project on GitHub",
     "overviewTitle": "What is LeishAI",
     "overview1": "AI tool to support vets in diagnosing canine leishmaniasis.",

@@ -103,8 +103,9 @@
     "loading": "Cargando perfil..."
   },
   "aboutPage": {
+    "brand": "DSLeish",
     "title": "DSLeish (Ciencia de Datos para Estudios sobre Leishmaniasis)",
-    "subtitle": "Frontend DSLeish + backend LeishAI (API, acceso a base de datos y modelo de IA que alimenta la interfaz).",
+    "subtitle": "Proyecto con IA para apoyar el control de la leishmaniasis visceral (PPGTAIR/UFPI). Frontend DSLeish + backend API con acceso a base de datos y modelo de IA.",
     "repoLink": "Proyecto en GitHub",
     "overviewTitle": "Qué es LeishAI",
     "overview1": "Herramienta de IA para apoyar el diagnóstico de leishmaniasis canina.",

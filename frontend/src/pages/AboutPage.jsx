@@ -47,7 +47,7 @@ function AboutPage() {
     <div className="about-page">
       <div className="about-hero">
         <div>
-          <p className="eyebrow">LeishAI</p>
+          <p className="eyebrow">{t('aboutPage.brand')}</p>
           <h1>{t('aboutPage.title')}</h1>
           <p className="subtitle">{t('aboutPage.subtitle')}</p>
           <a
