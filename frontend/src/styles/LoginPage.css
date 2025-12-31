@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
 }
 
 .login-page h2 {
-  margin: 12px 0 4px;
+  margin: 8px 0 0;
   text-align: center;
 }
