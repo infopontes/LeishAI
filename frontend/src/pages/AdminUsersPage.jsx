@@ -100,15 +100,20 @@ function AdminUsersPage() {
           <h2>{t('adminUsers.title')}</h2>
           <p>{t('adminUsers.description')}</p>
         </div>
-        <button onClick={loadData} className="refresh-btn" disabled={loading}>
-          {loading ? t('adminUsers.loading') : t('adminUsers.refresh')}
-        </button>
+        <div className="admin-actions">
+          <button onClick={loadData} className="refresh-btn" disabled={loading}>
+            {loading ? t('adminUsers.loading') : t('adminUsers.refresh')}
+          </button>
+          <button
+            className="refresh-btn ghost"
+            onClick={() => setShowCreate((p) => !p)}
+          >
+            {showCreate ? t('adminUsers.hideCreate') : t('adminUsers.showCreate')}
+          </button>
+        </div>
       </div>
 
       {error && <p className="error-message">{error}</p>}
-      <button className="refresh-btn" onClick={() => setShowCreate((p) => !p)}>
-        {showCreate ? t('adminUsers.hideCreate') : t('adminUsers.showCreate')}
-      </button>
 
       {showCreate && (
         <div className="create-user-card">

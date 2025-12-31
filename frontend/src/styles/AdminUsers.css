@@ -12,6 +12,11 @@
   margin-bottom: 16px;
 }
 
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
 .admin-header h2 {
   margin: 0;
 }
@@ -35,6 +40,11 @@
 .refresh-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.refresh-btn.ghost {
+  background: #e2e8f0;
+  color: #1f2937;
 }
 
 .create-user-card {
