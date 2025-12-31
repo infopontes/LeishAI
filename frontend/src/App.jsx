@@ -10,6 +10,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminUsersPage from './pages/AdminUsersPage';
+import ProfilePage from './pages/ProfilePage';
 import PredictionPage from './pages/PredictionPage';
 import './styles/App.css'; 
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="admin/users" element={<AdminUsersPage />} />
+        <Route path="profile" element={<ProfilePage />} />
         <Route path="predict" element={<PredictionPage />} />
       </Route>
     </Routes>

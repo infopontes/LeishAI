@@ -4,10 +4,16 @@ import { useAuth } from '../context/AuthContext';
 import Logout from './Logout';
 import LanguageSwitcher from './LanguageSwitcher';
 import '../styles/Header.css';
+import { useState } from 'react';
 
 function Header() {
   const { t } = useTranslation();
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { isAuthenticated, isAdmin, user } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const roleLabel = user?.role?.name
+    ? t(`adminUsers.roleLabels.${user.role.name}`, { defaultValue: user.role.name })
+    : t('adminUsers.noRole');
 
   return (
     <header className="header">
@@ -23,14 +29,39 @@ function Header() {
           )}
 
           {isAuthenticated && (
-            <>
+            <div className="navLinks">
               {isAdmin && (
                 <Link to="/admin/users" className="navLink">
                   {t('menu.admin')}
                 </Link>
               )}
+              <div className="userMenu">
+                <button
+                  className="userMenu__button"
+                  onClick={() => setMenuOpen((prev) => !prev)}
+                >
+                  <span className="userMenu__name">{user?.full_name || t('menu.profile')}</span>
+                  <span className="userMenu__role">{roleLabel}</span>
+                </button>
+                {menuOpen && (
+                  <div className="userMenu__dropdown">
+                    <Link to="/profile" className="dropdown-link" onClick={() => setMenuOpen(false)}>
+                      {t('menu.profile')}
+                    </Link>
+                    <button
+                      className="dropdown-link"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        document.querySelector('.logoutBtn')?.click();
+                      }}
+                    >
+                      {t('menu.logout')}
+                    </button>
+                  </div>
+                )}
+              </div>
               <Logout />
-            </>
+            </div>
           )}
         </div>
 

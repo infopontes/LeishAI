@@ -6,7 +6,8 @@
     "about": "Sobre",
     "login": "Entrar",
     "logout": "Sair",
-    "admin": "Admin"
+    "admin": "Admin",
+    "profile": "Perfil"
   },
   "footer": {
     "version": "Versão",
@@ -95,6 +96,11 @@
       "veterinario": "Veterinário",
       "coordenador": "Coordenador"
     }
+  },
+  "profile": {
+    "title": "Meu perfil",
+    "description": "Informações do usuário",
+    "loading": "Carregando perfil..."
   },
   "prediction": {
     "title": "Fazer uma Previsão",
