@@ -60,7 +60,10 @@
 
 .create-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  grid-template-areas:
+    "name email empty"
+    "institution password role";
   gap: 12px;
 }
 
@@ -78,9 +81,11 @@
   border: 1px solid #cbd5e1;
 }
 
-.create-grid .full-span {
-  grid-column: 1 / -1;
-}
+.create-grid .field-name { grid-area: name; }
+.create-grid .field-email { grid-area: email; }
+.create-grid .field-institution { grid-area: institution; }
+.create-grid .field-password { grid-area: password; }
+.create-grid .field-role { grid-area: role; }
 
 .users-table {
   border: 1px solid #e2e8f0;

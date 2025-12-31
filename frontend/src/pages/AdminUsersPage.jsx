@@ -119,7 +119,7 @@ function AdminUsersPage() {
         <div className="create-user-card">
           <h3>{t('adminUsers.createTitle')}</h3>
           <div className="create-grid">
-            <label>
+            <label className="field-name">
               {t('register.fullName')}
               <input
                 value={createData.fullName}
@@ -128,7 +128,7 @@ function AdminUsersPage() {
                 }
               />
             </label>
-            <label>
+            <label className="field-email">
               {t('login.emailLabel')}
               <input
                 type="email"
@@ -138,7 +138,7 @@ function AdminUsersPage() {
                 }
               />
             </label>
-            <label>
+            <label className="field-institution">
               {t('register.institution')}
               <input
                 value={createData.institution}
@@ -150,7 +150,7 @@ function AdminUsersPage() {
                 }
               />
             </label>
-            <label>
+            <label className="field-password">
               {t('login.passwordLabel')}
               <input
                 type="password"
@@ -160,7 +160,7 @@ function AdminUsersPage() {
                 }
               />
             </label>
-            <label className="full-span">
+            <label className="field-role">
               {t('adminUsers.role')}
               <select
                 value={createData.roleId}
