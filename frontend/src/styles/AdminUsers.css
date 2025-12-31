@@ -37,6 +37,37 @@
   cursor: not-allowed;
 }
 
+.create-user-card {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.create-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.create-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.create-grid input,
+.create-grid select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
 .users-table {
   border: 1px solid #e2e8f0;
   border-radius: 10px;

@@ -82,6 +82,10 @@
     "activeYes": "Active",
     "activeNo": "Inactive",
     "error": "Unable to load or update users.",
+    "showCreate": "New user",
+    "hideCreate": "Hide form",
+    "createTitle": "Create user directly (no email notification)",
+    "createButton": "Create user",
     "roleLabels": {
       "admin": "Admin",
       "veterinario": "Veterinarian",

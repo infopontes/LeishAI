@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { fetchUsers, fetchRoles, updateUserAdmin } from '../services/api';
+import {
+  fetchUsers,
+  fetchRoles,
+  updateUserAdmin,
+  registerUser,
+} from '../services/api';
 import '../styles/AdminUsers.css';
 
 function AdminUsersPage() {
@@ -10,6 +15,14 @@ function AdminUsersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: 'full_name', dir: 'asc' });
+  const [showCreate, setShowCreate] = useState(false);
+  const [createData, setCreateData] = useState({
+    fullName: '',
+    email: '',
+    institution: '',
+    password: '',
+    roleId: '',
+  });
 
   const loadData = async () => {
     try {
@@ -93,6 +106,121 @@ function AdminUsersPage() {
       </div>
 
       {error && <p className="error-message">{error}</p>}
+      <button className="refresh-btn" onClick={() => setShowCreate((p) => !p)}>
+        {showCreate ? t('adminUsers.hideCreate') : t('adminUsers.showCreate')}
+      </button>
+
+      {showCreate && (
+        <div className="create-user-card">
+          <h3>{t('adminUsers.createTitle')}</h3>
+          <div className="create-grid">
+            <label>
+              {t('register.fullName')}
+              <input
+                value={createData.fullName}
+                onChange={(e) =>
+                  setCreateData((prev) => ({ ...prev, fullName: e.target.value }))
+                }
+              />
+            </label>
+            <label>
+              {t('login.emailLabel')}
+              <input
+                type="email"
+                value={createData.email}
+                onChange={(e) =>
+                  setCreateData((prev) => ({ ...prev, email: e.target.value }))
+                }
+              />
+            </label>
+            <label>
+              {t('register.institution')}
+              <input
+                value={createData.institution}
+                onChange={(e) =>
+                  setCreateData((prev) => ({
+                    ...prev,
+                    institution: e.target.value,
+                  }))
+                }
+              />
+            </label>
+            <label>
+              {t('login.passwordLabel')}
+              <input
+                type="password"
+                value={createData.password}
+                onChange={(e) =>
+                  setCreateData((prev) => ({ ...prev, password: e.target.value }))
+                }
+              />
+            </label>
+            <label>
+              {t('adminUsers.role')}
+              <select
+                value={createData.roleId}
+                onChange={(e) =>
+                  setCreateData((prev) => ({ ...prev, roleId: e.target.value }))
+                }
+              >
+                <option value="">{t('adminUsers.noRole')}</option>
+                {roles.map((role) => (
+                  <option key={role.id} value={role.id}>
+                    {translateRoleName(role.name)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <button
+            className="refresh-btn"
+            onClick={async () => {
+              setError('');
+              if (!createData.fullName || !createData.email || !createData.password) {
+                setError(t('register.error.missingFields'));
+                return;
+              }
+              if (createData.password.length < 8) {
+                setError(t('register.error.tooShort'));
+                return;
+              }
+              try {
+                const newUser = await registerUser({
+                  fullName: createData.fullName,
+                  email: createData.email,
+                  institution: createData.institution,
+                  password: createData.password,
+                  reason: 'Created by admin panel',
+                });
+                if (createData.roleId) {
+                  const updated = await updateUserAdmin(newUser.id, {
+                    role_id: createData.roleId,
+                    is_active: true,
+                  });
+                  setUsers((prev) => [...prev, updated]);
+                } else {
+                  setUsers((prev) => [
+                    ...prev,
+                    { ...newUser, is_active: true, role: null },
+                  ]);
+                }
+                setCreateData({
+                  fullName: '',
+                  email: '',
+                  institution: '',
+                  password: '',
+                  roleId: '',
+                });
+                setShowCreate(false);
+              } catch (err) {
+                setError(err.message || t('adminUsers.error'));
+              }
+            }}
+          >
+            {t('adminUsers.createButton')}
+          </button>
+        </div>
+      )}
 
       {loading ? (
         <p>{t('adminUsers.loading')}</p>

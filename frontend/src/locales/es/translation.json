@@ -82,6 +82,10 @@
     "activeYes": "Activo",
     "activeNo": "Inactivo",
     "error": "No se pudieron cargar o actualizar los usuarios.",
+    "showCreate": "Nuevo usuario",
+    "hideCreate": "Ocultar formulario",
+    "createTitle": "Crear usuario directamente (sin notificación por correo)",
+    "createButton": "Crear usuario",
     "roleLabels": {
       "admin": "Admin",
       "veterinario": "Veterinario",
