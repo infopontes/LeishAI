@@ -105,11 +105,15 @@
   "aboutPage": {
     "brand": "DSLeish",
     "title": "DSLeish (Ciencia de Datos para Estudios sobre Leishmaniasis)",
-    "subtitle": "Proyecto con IA para apoyar el control de la leishmaniasis visceral (PPGTAIR/UFPI). Frontend DSLeish + backend API con acceso a base de datos y modelo de IA.",
+    "subtitle": "Proyecto con IA para apoyar el control de la leishmaniasis visceral (PPGTAIR/UFPI).",
     "repoLink": "Proyecto en GitHub",
     "overviewTitle": "Qué es LeishAI",
     "overview1": "Herramienta de IA para apoyar el diagnóstico de leishmaniasis canina.",
     "overview2": "Incluye API backend y flujo de machine learning.",
+    "frontendTitle": "Frontend (DSLeish)",
+    "frontend1": "Construido con React e i18n (PT/EN/ES) para veterinarios y admins.",
+    "frontend2": "Autenticación, restablecimiento de contraseña, autoservicio de registro con activación por admin.",
+    "frontend3": "Panel de admin para gestionar usuarios/perfiles y ver perfiles.",
     "backendTitle": "Backend/API",
     "backend1": "FastAPI con PostgreSQL, SQLAlchemy y Alembic.",
     "backend2": "JWT, RBAC (admin/veterinario/coordinador), rate limiting.",
@@ -118,11 +122,7 @@
     "mlTitle": "Machine learning",
     "ml1": "EDA y comparación de modelos (Reg. Logística, RF, XGBoost, SVM).",
     "ml2": "Manejo de desbalance (class_weight, SMOTE, undersampling).",
-    "ml3": "Modelo final: Regresión Logística balanceada con artefactos .joblib.",
-    "usageTitle": "Uso clave",
-    "usage1": "Docs interactivas en /docs al levantar el backend.",
-    "usage2": "Seed de datos con `poetry run task seed` para roles/usuarios/razas y CSV.",
-    "usage3": "Endpoint de predicción `/predict` devuelve diagnóstico y confianza."
+    "ml3": "Modelo final: Regresión Logística balanceada con artefactos .joblib."
   },
   "prediction": {
     "title": "Hacer una Predicción",

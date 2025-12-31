@@ -105,11 +105,15 @@
   "aboutPage": {
     "brand": "DSLeish",
     "title": "DSLeish (Data Science for Leishmaniasis Studies)",
-    "subtitle": "AI project to assist control of visceral leishmaniasis (PPGTAIR/UFPI). Frontend DSLeish + backend API with database access and AI model.",
+    "subtitle": "AI project to assist control of visceral leishmaniasis (PPGTAIR/UFPI).",
     "repoLink": "Project on GitHub",
     "overviewTitle": "What is LeishAI",
     "overview1": "AI tool to support vets in diagnosing canine leishmaniasis.",
     "overview2": "Includes backend API and machine learning workflow.",
+    "frontendTitle": "Frontend (DSLeish)",
+    "frontend1": "Built with React and i18n (PT/EN/ES) for vets and admins.",
+    "frontend2": "Authentication, password reset, user self-signup with admin activation.",
+    "frontend3": "Admin dashboard to manage users/roles and view profiles.",
     "backendTitle": "Backend/API",
     "backend1": "FastAPI with PostgreSQL, SQLAlchemy and Alembic.",
     "backend2": "JWT auth, RBAC (admin/veterinarian/coordinator), rate limiting.",
@@ -118,11 +122,7 @@
     "mlTitle": "Machine learning",
     "ml1": "EDA and model comparison (LogReg, RF, XGBoost, SVM).",
     "ml2": "Handles class imbalance (class_weight, SMOTE, undersampling).",
-    "ml3": "Final model: balanced Logistic Regression with saved artifacts (.joblib).",
-    "usageTitle": "Key usage",
-    "usage1": "Interactive docs at /docs once backend is running.",
-    "usage2": "Seed data with `poetry run task seed` to load roles/users/breeds and CSV.",
-    "usage3": "Prediction endpoint `/predict` returns diagnosis and confidence."
+    "ml3": "Final model: balanced Logistic Regression with saved artifacts (.joblib)."
   },
   "prediction": {
     "title": "Make a Prediction",

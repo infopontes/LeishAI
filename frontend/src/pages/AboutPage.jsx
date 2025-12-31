@@ -17,6 +17,14 @@ function AboutPage() {
       ],
     },
     {
+      title: t('aboutPage.frontendTitle'),
+      items: [
+        t('aboutPage.frontend1'),
+        t('aboutPage.frontend2'),
+        t('aboutPage.frontend3'),
+      ],
+    },
+    {
       title: t('aboutPage.backendTitle'),
       items: [
         t('aboutPage.backend1'),
@@ -31,14 +39,6 @@ function AboutPage() {
         t('aboutPage.ml1'),
         t('aboutPage.ml2'),
         t('aboutPage.ml3'),
-      ],
-    },
-    {
-      title: t('aboutPage.usageTitle'),
-      items: [
-        t('aboutPage.usage1'),
-        t('aboutPage.usage2'),
-        t('aboutPage.usage3'),
       ],
     },
   ];
