@@ -102,6 +102,27 @@
     "description": "Información del usuario",
     "loading": "Cargando perfil..."
   },
+  "aboutPage": {
+    "title": "Diagnóstico asistido por IA para leishmaniasis canina",
+    "subtitle": "API backend + pipeline de ML para apoyar a veterinarios con predicciones y confiabilidad.",
+    "repoLink": "Proyecto en GitHub",
+    "overviewTitle": "Qué es LeishAI",
+    "overview1": "Herramienta de IA para apoyar el diagnóstico de leishmaniasis canina.",
+    "overview2": "Incluye API backend y flujo de machine learning.",
+    "backendTitle": "Backend/API",
+    "backend1": "FastAPI con PostgreSQL, SQLAlchemy y Alembic.",
+    "backend2": "JWT, RBAC (admin/veterinario/coordinador), rate limiting.",
+    "backend3": "Endpoints para usuarios, roles, dueños, razas, animales, evaluaciones y predicciones.",
+    "backend4": "Seeds, CORS, tests con Pytest, gestionado con Poetry y Docker para DB.",
+    "mlTitle": "Machine learning",
+    "ml1": "EDA y comparación de modelos (Reg. Logística, RF, XGBoost, SVM).",
+    "ml2": "Manejo de desbalance (class_weight, SMOTE, undersampling).",
+    "ml3": "Modelo final: Regresión Logística balanceada con artefactos .joblib.",
+    "usageTitle": "Uso clave",
+    "usage1": "Docs interactivas en /docs al levantar el backend.",
+    "usage2": "Seed de datos con `poetry run task seed` para roles/usuarios/razas y CSV.",
+    "usage3": "Endpoint de predicción `/predict` devuelve diagnóstico y confianza."
+  },
   "prediction": {
     "title": "Hacer una Predicción",
     "description": "Ingrese los datos clínicos a continuación para obtener una predicción de diagnóstico.",

@@ -1,0 +1,76 @@
+.about-page {
+  padding: 32px 16px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-hero {
+  background: linear-gradient(135deg, #0d6efd, #6aa6ff);
+  color: #fff;
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 12px 30px rgba(13, 110, 253, 0.25);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  margin: 0 0 6px;
+  opacity: 0.9;
+}
+
+.about-hero h1 {
+  margin: 0 0 8px;
+  font-size: 1.9rem;
+}
+
+.subtitle {
+  margin: 0 0 14px;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.repo-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fff;
+  color: #0d6efd;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.35);
+}
+
+.repo-button:hover {
+  background: #f2f6ff;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.about-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.about-card h3 {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+.about-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #374151;
+  line-height: 1.5;
+}
