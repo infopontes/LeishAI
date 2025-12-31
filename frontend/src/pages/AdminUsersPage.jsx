@@ -160,7 +160,7 @@ function AdminUsersPage() {
                 }
               />
             </label>
-            <label>
+            <label className="full-span">
               {t('adminUsers.role')}
               <select
                 value={createData.roleId}
